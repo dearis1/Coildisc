@@ -287,7 +287,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Dearis Mahendra\Downloads\logout me1 (2).png"/>
+                  <Image iconType="3" name="/images/logout me1 (2).png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Logout"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
@@ -507,7 +507,7 @@
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Dearis Mahendra\Downloads\Bukuku2-removebg-preview (1) (1).png"/>
+              <Image iconType="3" name="/images/Bukuku2-removebg-preview (1) (1).png"/>
             </Property>
           </Properties>
         </Component>

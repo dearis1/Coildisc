@@ -179,7 +179,7 @@ public class HomePage extends javax.swing.JFrame {
 
         logoutUser.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         logoutUser.setForeground(new java.awt.Color(255, 255, 255));
-        logoutUser.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dearis Mahendra\\Downloads\\logout me1 (2).png")); // NOI18N
+        logoutUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout me1 (2).png"))); // NOI18N
         logoutUser.setText("Logout");
         logoutUser.setBorderPainted(false);
         logoutUser.setContentAreaFilled(false);
@@ -328,7 +328,7 @@ public class HomePage extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("BukuKu");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dearis Mahendra\\Downloads\\Bukuku2-removebg-preview (1) (1).png")); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Bukuku2-removebg-preview (1) (1).png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);

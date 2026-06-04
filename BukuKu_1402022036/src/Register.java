@@ -146,7 +146,7 @@ public class Register extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("BukuKu");
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dearis Mahendra\\Downloads\\Buku meee1.png")); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Buku meee1.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

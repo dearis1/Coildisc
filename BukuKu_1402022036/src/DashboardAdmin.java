@@ -118,7 +118,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("BukuKu");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dearis Mahendra\\Downloads\\Buku meee1.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Buku meee1.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -242,11 +242,11 @@ public class DashboardAdmin extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Kategori", "Fiksi", "Komik", "Sejarah", "Game", "Teknologi/Informatika" }));
 
         edit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        edit.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dearis Mahendra\\Downloads\\Editmee_11 (2).png")); // NOI18N
+        edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Editmee_11 (2).png"))); // NOI18N
         edit.addActionListener(this::editActionPerformed);
 
         delete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        delete.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dearis Mahendra\\Downloads\\Deletemee_11 (2).png")); // NOI18N
+        delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Deletemee_11 (2).png"))); // NOI18N
         delete.addActionListener(this::deleteActionPerformed);
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -336,7 +336,7 @@ public class DashboardAdmin extends javax.swing.JFrame {
         );
 
         logutAdmin.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
-        logutAdmin.setIcon(new javax.swing.ImageIcon("C:\\Users\\Dearis Mahendra\\Downloads\\Loginmee 11 (1).png")); // NOI18N
+        logutAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Loginmee 11 (1).png"))); // NOI18N
         logutAdmin.setText("Logout");
         logutAdmin.setBorderPainted(false);
         logutAdmin.setContentAreaFilled(false);
