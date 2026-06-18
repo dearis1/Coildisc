@@ -7,6 +7,11 @@
  *
  * @author Dearis Mahendra
  */
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+
 public class Login extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Login.class.getName());
@@ -34,7 +39,7 @@ public class Login extends javax.swing.JFrame {
         txtUsername = new javax.swing.JTextField();
         txtPass = new javax.swing.JPasswordField();
         showPass = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,9 +67,10 @@ public class Login extends javax.swing.JFrame {
         showPass.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         showPass.setForeground(new java.awt.Color(204, 255, 255));
         showPass.setText("Tampilkan Password");
+        showPass.addActionListener(this::showPassActionPerformed);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        btnLogin.setText("Login");
+        btnLogin.addActionListener(this::btnLoginActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,8 +81,8 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(showPass)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                        .addComponent(btnLogin))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -105,7 +111,7 @@ public class Login extends javax.swing.JFrame {
                         .addContainerGap(26, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(btnLogin)
                         .addContainerGap())))
         );
 
@@ -122,9 +128,52 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsernameActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String username = txtUsername.getText();
+        String password = new String(txtPass.getPassword());
+        
+        if (username.trim().isEmpty() || password.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username dan Password tidak boleh kosong!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+        try {
+            Connection conn = Koneksi.getConnection(); 
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, username);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(this, "Login Berhasil! Selamat Bertugas.");
+                
+                String namaLogin = rs.getString("username"); 
+
+                FiturUtama utama = new FiturUtama(namaLogin);
+                utama.setVisible(true);
+
+                this.dispose(); 
+            } else {
+                JOptionPane.showMessageDialog(this, "Username atau Password salah!", "Login Gagal", JOptionPane.ERROR_MESSAGE);
+                txtPass.setText("");
+                txtUsername.requestFocus();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error Koneksi Database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void showPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPassActionPerformed
+        // TODO add your handling code here:
+        if (showPass.isSelected()) {
+            txtPass.setEchoChar((char) 0);
+        } else {
+            txtPass.setEchoChar('•'); 
+    }
+    }//GEN-LAST:event_showPassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,7 +201,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

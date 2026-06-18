@@ -14,8 +14,10 @@ public class FiturUtama extends javax.swing.JFrame {
     /**
      * Creates new form FiturUtama
      */
-    public FiturUtama() {
+    private String petugasLogin;
+    public FiturUtama(String namaPetugas) {
         initComponents();
+        this.petugasLogin = namaPetugas;
     }
 
     /**
@@ -27,27 +29,31 @@ public class FiturUtama extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnUtama = new javax.swing.JButton();
+        btnAdmin = new javax.swing.JButton();
+        btnAktivitas = new javax.swing.JButton();
+        pnlKonten = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1250, 600));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Mode Admin");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        btnUtama.setText("Halaman Utama");
+        btnUtama.addActionListener(this::btnUtamaActionPerformed);
+        getContentPane().add(btnUtama, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jButton2.setText("Log Aktifitas");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 100, -1));
+        btnAdmin.setText("Mode admin");
+        btnAdmin.addActionListener(this::btnAdminActionPerformed);
+        getContentPane().add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 100, -1));
 
-        jButton3.setText("History");
-        jButton3.addActionListener(this::jButton3ActionPerformed);
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 100, -1));
+        btnAktivitas.setText("Aktivitas");
+        btnAktivitas.addActionListener(this::btnAktivitasActionPerformed);
+        getContentPane().add(btnAktivitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 100, -1));
+
+        pnlKonten.setBackground(new java.awt.Color(204, 204, 204));
+        pnlKonten.setLayout(new java.awt.CardLayout());
+        getContentPane().add(pnlKonten, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 950, 390));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Desain_tanpa_judul.jpg.jpeg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 600));
@@ -56,17 +62,24 @@ public class FiturUtama extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnUtamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUtamaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        halamanUtama utama = new halamanUtama(this.petugasLogin); 
+    
+        // 3. Sisa kode kamu ke bawah buat nampilin panelnya biarkan tetap seperti aslinya
+        utama.setVisible(true);
+        pnlKonten.add(utama);
+        pnlKonten.revalidate();
+        pnlKonten.repaint();
+    }//GEN-LAST:event_btnUtamaActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnAdminActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnAktivitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAktivitasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnAktivitasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -90,13 +103,14 @@ public class FiturUtama extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FiturUtama().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new FiturUtama("").setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnAdmin;
+    private javax.swing.JButton btnAktivitas;
+    private javax.swing.JButton btnUtama;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel pnlKonten;
     // End of variables declaration//GEN-END:variables
 }

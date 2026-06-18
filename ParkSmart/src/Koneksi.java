@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 public class Koneksi {
     private static Connection mysqlkonek;
-    public static Connection koneksiDB() {
+    public static Connection getConnection() {
         if (mysqlkonek == null) {
             try {
                 String url = "jdbc:mysql://localhost:3306/db_parksmart";
@@ -33,6 +33,6 @@ public class Koneksi {
     }
     
     public static void main(String[] args) {
-        koneksiDB();
+        getConnection();
     }
 }
