@@ -152,7 +152,7 @@ public class Login extends javax.swing.JFrame {
                 
                 String namaLogin = rs.getString("username"); 
 
-                FiturUtama utama = new FiturUtama(namaLogin);
+                HalamanUtama utama = new HalamanUtama(namaLogin);
                 utama.setVisible(true);
 
                 this.dispose(); 

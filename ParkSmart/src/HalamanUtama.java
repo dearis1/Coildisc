@@ -7,15 +7,15 @@
  *
  * @author ABID
  */
-public class FiturUtama extends javax.swing.JFrame {
+public class HalamanUtama extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FiturUtama.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(HalamanUtama.class.getName());
 
     /**
      * Creates new form FiturUtama
      */
     private String petugasLogin;
-    public FiturUtama(String namaPetugas) {
+    public HalamanUtama(String namaPetugas) {
         initComponents();
         this.petugasLogin = namaPetugas;
     }
@@ -29,9 +29,10 @@ public class FiturUtama extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnUtama = new javax.swing.JButton();
+        btnMasuk = new javax.swing.JButton();
         btnAdmin = new javax.swing.JButton();
         btnAktivitas = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         pnlKonten = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -39,22 +40,35 @@ public class FiturUtama extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnUtama.setText("Halaman Utama");
-        btnUtama.addActionListener(this::btnUtamaActionPerformed);
-        getContentPane().add(btnUtama, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        btnMasuk.setBackground(new java.awt.Color(204, 204, 255));
+        btnMasuk.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
+        btnMasuk.setText("Kendaraan Masuk");
+        btnMasuk.addActionListener(this::btnMasukActionPerformed);
+        getContentPane().add(btnMasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, 40));
 
-        btnAdmin.setText("Mode admin");
+        btnAdmin.setBackground(new java.awt.Color(204, 204, 255));
+        btnAdmin.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
+        btnAdmin.setText("Cetak Karcis");
         btnAdmin.addActionListener(this::btnAdminActionPerformed);
-        getContentPane().add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 100, -1));
+        getContentPane().add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, 40));
 
+        btnAktivitas.setBackground(new java.awt.Color(204, 204, 255));
+        btnAktivitas.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnAktivitas.setText("Aktivitas");
         btnAktivitas.addActionListener(this::btnAktivitasActionPerformed);
-        getContentPane().add(btnAktivitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 100, -1));
+        getContentPane().add(btnAktivitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, 40));
+
+        jButton1.setBackground(new java.awt.Color(204, 204, 255));
+        jButton1.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
+        jButton1.setText("Cari Data Kendaraan");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, 40));
 
         pnlKonten.setBackground(new java.awt.Color(204, 204, 204));
         pnlKonten.setLayout(new java.awt.CardLayout());
         getContentPane().add(pnlKonten, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 950, 390));
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Desain_tanpa_judul.jpg.jpeg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1250, 600));
 
@@ -62,16 +76,15 @@ public class FiturUtama extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnUtamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUtamaActionPerformed
+    private void btnMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasukActionPerformed
         // TODO add your handling code here:
-        halamanUtama utama = new halamanUtama(this.petugasLogin); 
+        KendaraanMasuk masuk = new KendaraanMasuk(this.petugasLogin); 
     
-        // 3. Sisa kode kamu ke bawah buat nampilin panelnya biarkan tetap seperti aslinya
-        utama.setVisible(true);
-        pnlKonten.add(utama);
+        masuk.setVisible(true);
+        pnlKonten.add(masuk);
         pnlKonten.revalidate();
         pnlKonten.repaint();
-    }//GEN-LAST:event_btnUtamaActionPerformed
+    }//GEN-LAST:event_btnMasukActionPerformed
 
     private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
         // TODO add your handling code here:
@@ -80,6 +93,10 @@ public class FiturUtama extends javax.swing.JFrame {
     private void btnAktivitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAktivitasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAktivitasActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -103,13 +120,14 @@ public class FiturUtama extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FiturUtama("").setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new HalamanUtama("").setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdmin;
     private javax.swing.JButton btnAktivitas;
-    private javax.swing.JButton btnUtama;
+    private javax.swing.JButton btnMasuk;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel pnlKonten;
     // End of variables declaration//GEN-END:variables
