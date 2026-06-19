@@ -16,6 +16,12 @@ public class CetakKarcis extends javax.swing.JPanel {
     public CetakKarcis() {
         initComponents();
     }
+    
+    public CetakKarcis(String kodeOtomatis) {
+        initComponents();
+        txtCariData.setText(kodeOtomatis);
+        btnCariActionPerformed(null);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,13 +76,18 @@ public class CetakKarcis extends javax.swing.JPanel {
 
         txtCariData.addActionListener(this::txtCariDataActionPerformed);
 
+        btnCari.setBackground(new java.awt.Color(204, 204, 255));
         btnCari.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCari.setText("Cari");
         btnCari.addActionListener(this::btnCariActionPerformed);
 
+        btnCetak.setBackground(new java.awt.Color(204, 204, 255));
+        btnCetak.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCetak.setText("Cetak");
         btnCetak.addActionListener(this::btnCetakActionPerformed);
 
+        btnKembali.setBackground(new java.awt.Color(204, 204, 255));
+        btnKembali.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnKembali.setText("Kembali");
         btnKembali.addActionListener(this::btnKembaliActionPerformed);
 
@@ -90,20 +101,24 @@ public class CetakKarcis extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(334, 334, 334)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCetak)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnKembali))
+                        .addGap(334, 334, 334)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnCetak)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnKembali))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtCariData, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCari))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCariData, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCari))
-                    .addComponent(jScrollPane1))
-                .addContainerGap(319, Short.MAX_VALUE))
+                        .addGap(202, 202, 202)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(202, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,60 +147,59 @@ public class CetakKarcis extends javax.swing.JPanel {
 
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
         // TODO add your handling code here:
-        String platCari = txtCariData.getText().trim();
+        String kodeCari = txtCariData.getText().trim().toUpperCase().replace(" ", "");
 
-    if (platCari.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Ketik plat nomor yang mau dicari dulu lek!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    String sql = "SELECT * FROM kendaraan WHERE plat_nomor = ? ORDER BY tanggal_masuk DESC LIMIT 1";
-
-    try {
-        java.sql.Connection conn = Koneksi.getConnection();
-        java.sql.PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, platCari);
-        java.sql.ResultSet rs = ps.executeQuery();
-
-        if (rs.next()) {
-            String kode = rs.getString("kode_tarif");
-            String plat = rs.getString("plat_nomor");
-            String jenis = rs.getString("jenis_kendaraan");
-            String tgl = rs.getString("tanggal_masuk");
-            String jam = rs.getString("waktu_masuk");
-            int tarif = rs.getInt("tarif");
-
-            if (plat != null && plat.matches("^[A-Z]{1,2}\\d{1,4}[A-Z]{1,3}$")) {
-                plat = plat.replaceAll("^([A-Z]{1,2})(\\d{1,4})([A-Z]{1,3})$", "$1 $2 $3");
-            }
-
-            StringBuilder sb = new StringBuilder();
-            sb.append("\t\t--- PARKSMART STATION ---\n");
-            sb.append("\tJl. Letjen Suprapto, Cempaka Putih, Jakarta Pusat\n");
-            sb.append("\tTelp. +6229-123456\n");
-            sb.append("==================================================\n");
-            sb.append("========= KARCIS TANDA MASUK PARKIR =========\n");
-            sb.append(" Kode Tiket\t: ").append(kode).append("\n");
-            sb.append(" Plat Nomer\t: ").append(plat).append("\n");
-            sb.append(" Jenis Kendaraan\t: ").append(jenis.toUpperCase()).append("\n");
-            sb.append(" Tanggal\t\t: ").append(tgl).append("\n");
-            sb.append(" Jam Masuk\t: ").append(jam).append("\n");
-            sb.append(" Biaya\t\t: Rp. ").append(tarif).append(" /Jam\n");
-            sb.append("==================================================\n");
-            sb.append("        Demi Kenyamanan dan Keamanan,\n");
-            sb.append("     Mohon Jangan Meninggalkan Karcis Ini\n");
-            sb.append("==================================================\n");
-
-            txtStruk.setText(sb.toString());
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Data kendaraan dengan plat " + platCari + " tidak ditemukan lek!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-            txtStruk.setText("");
+        if (kodeCari.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ketik Kode Karcis yang mau dicari!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (kodeCari.length() == 6 && !kodeCari.contains("-")) {
+            kodeCari = kodeCari.substring(0, 2) + "-" + kodeCari.substring(2);
         }
 
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Gagal cari data lek: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-    }
+        String sql = "SELECT * FROM kendaraan WHERE kode_tarif = ?";
+
+        try {
+            java.sql.Connection conn = Koneksi.getConnection();
+            java.sql.PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, kodeCari);
+            java.sql.ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String kode = rs.getString("kode_tarif");
+                String jenis = rs.getString("jenis_kendaraan");
+                String tgl = rs.getString("tanggal_masuk");
+                String jam = rs.getString("waktu_masuk");
+                int tarif = rs.getInt("tarif");
+
+                StringBuilder sb = new StringBuilder();
+                sb.append("\t                             --- PARKSMART STATION ---\n");
+                sb.append("\t                Jl. Letjen Suprapto, Cempaka Putih, Jakarta Pusat\n");
+                sb.append("\t\t             Telp. +6229-123456\n");
+                sb.append("\t==================================================\n");
+                sb.append("\t============ KARCIS TANDA MASUK PARKIR ============\n");
+                sb.append("\tKode Tiket\t\t: ").append(kode).append("\n");
+                sb.append("\tJenis Kendaraan\t: ").append(jenis.toUpperCase()).append("\n");
+                sb.append("\tTanggal\t\t: ").append(tgl).append("\n");
+                sb.append("\tJam Masuk\t\t: ").append(jam).append("\n");
+                sb.append("\tBiaya\t\t: Rp. ").append(tarif).append(" /Jam\n");
+                sb.append("\t==================================================\n");
+                sb.append("\t\t   Demi Kenyamanan dan Keamanan,\n");
+                sb.append("\t                       Mohon Tidak Meninggalkan Karcis Ini\n");
+                 sb.append("\t          Segala Bentuk Kehilangan Bukan Tanggung Jawab Kami\n");
+                sb.append("\t==================================================\n");
+
+                txtStruk.setText(sb.toString());
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Kode Karcis " + kodeCari + " tidak ditemukan lek!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+                txtStruk.setText("");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal cari data lek: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnCariActionPerformed
 
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed

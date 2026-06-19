@@ -30,7 +30,7 @@ public class HalamanUtama extends javax.swing.JFrame {
     private void initComponents() {
 
         btnMasuk = new javax.swing.JButton();
-        btnAdmin = new javax.swing.JButton();
+        btnCetak = new javax.swing.JButton();
         btnAktivitas = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         pnlKonten = new javax.swing.JPanel();
@@ -46,21 +46,21 @@ public class HalamanUtama extends javax.swing.JFrame {
         btnMasuk.addActionListener(this::btnMasukActionPerformed);
         getContentPane().add(btnMasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, 40));
 
-        btnAdmin.setBackground(new java.awt.Color(204, 204, 255));
-        btnAdmin.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnAdmin.setText("Cetak Karcis");
-        btnAdmin.addActionListener(this::btnAdminActionPerformed);
-        getContentPane().add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, 40));
+        btnCetak.setBackground(new java.awt.Color(204, 204, 255));
+        btnCetak.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
+        btnCetak.setText("Cetak Karcis");
+        btnCetak.addActionListener(this::btnCetakActionPerformed);
+        getContentPane().add(btnCetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, 40));
 
         btnAktivitas.setBackground(new java.awt.Color(204, 204, 255));
         btnAktivitas.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnAktivitas.setText("Aktivitas");
         btnAktivitas.addActionListener(this::btnAktivitasActionPerformed);
-        getContentPane().add(btnAktivitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, 40));
+        getContentPane().add(btnAktivitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, -1, 40));
 
         jButton1.setBackground(new java.awt.Color(204, 204, 255));
         jButton1.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        jButton1.setText("Cari Data Kendaraan");
+        jButton1.setText("Kendaraan Keluar");
         jButton1.addActionListener(this::jButton1ActionPerformed);
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, 40));
 
@@ -78,17 +78,25 @@ public class HalamanUtama extends javax.swing.JFrame {
 
     private void btnMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasukActionPerformed
         // TODO add your handling code here:
+        pnlKonten.removeAll();
+        
         KendaraanMasuk masuk = new KendaraanMasuk(this.petugasLogin); 
-    
-        masuk.setVisible(true);
         pnlKonten.add(masuk);
+        
         pnlKonten.revalidate();
         pnlKonten.repaint();
     }//GEN-LAST:event_btnMasukActionPerformed
 
-    private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
+    private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAdminActionPerformed
+        pnlKonten.removeAll();
+        
+        CetakKarcis cetak = new CetakKarcis();
+        pnlKonten.add(cetak);
+      
+        pnlKonten.revalidate();
+        pnlKonten.repaint();
+    }//GEN-LAST:event_btnCetakActionPerformed
 
     private void btnAktivitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAktivitasActionPerformed
         // TODO add your handling code here:
@@ -124,11 +132,11 @@ public class HalamanUtama extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdmin;
     private javax.swing.JButton btnAktivitas;
+    private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnMasuk;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel pnlKonten;
+    public javax.swing.JPanel pnlKonten;
     // End of variables declaration//GEN-END:variables
 }

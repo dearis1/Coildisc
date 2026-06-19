@@ -30,15 +30,21 @@ public class KendaraanMasuk extends javax.swing.JPanel {
         loadTable();
     }
     
-    private String kodeTarifAcak(int panjang) {
-        String karakter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private String kodeTarifAcak(String jenisKendaraan) {
         StringBuilder sb = new StringBuilder();
         java.util.Random random = new java.util.Random();
 
-        for (int i = 0; i < panjang; i++) {
-            int index = random.nextInt(karakter.length());
-            sb.append(karakter.charAt(index));
+        if (jenisKendaraan.equalsIgnoreCase("MOTOR")) {
+            sb.append("MT-");
+        } else if (jenisKendaraan.equalsIgnoreCase("MOBIL")) {
+            sb.append("MB-");
+        } else {
+            sb.append("TRF-");
         }
+
+        int angka = 1000 + random.nextInt(9000);
+        sb.append(angka);
+
         return sb.toString();
     }
 
@@ -340,27 +346,27 @@ public class KendaraanMasuk extends javax.swing.JPanel {
 
         String jenisKendaraan = "";
         if (kendaraanMobil.isSelected()) {
-            jenisKendaraan = "Mobil";
+            jenisKendaraan = "MOBIL";
         } else if (kendaraanMotor.isSelected()) {
-            jenisKendaraan = "Motor";
+            jenisKendaraan = "MOTOR";
         }
 
         if (jenisKendaraan.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Pilih jenis kendaraan (Mobil/Motor) dulu lek!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pilih jenis kendaraan (Mobil/Motor)!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         int tarifDasar = Integer.parseInt(txtTarif.getText());
 
         if (platNomor.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Plat Nomor wajib diisi lek!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Plat Nomor wajib diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
         if (jenisKendaraan.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Pilih jenis kendaraan (Mobil/Motor) dulu lek!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pilih jenis kendaraan (Mobil/Motor)!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        String kodeTarif = "TRF-" + kodeTarifAcak(5);
+        String kodeTarif = kodeTarifAcak(jenisKendaraan);
 
         String sql = "INSERT INTO kendaraan (kode_tarif, plat_nomor, jenis_kendaraan, warna_kendaraan, "
                    + "tanggal_masuk, waktu_masuk, tarif, no_telp, petugas_jaga) "
@@ -383,7 +389,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
             int hasil = ps.executeUpdate();
 
             if (hasil > 0) {
-                JOptionPane.showMessageDialog(this, "Kendaraan " + platNomor + " berhasil masuk gedung!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Kendaraan " + platNomor + " berhasil masuk! Kode Tiket: " + kodeTarif, "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
                 txtPlat.setText("");
                 txtWarna.setText("");
@@ -393,10 +399,21 @@ public class KendaraanMasuk extends javax.swing.JPanel {
                 buttonGroup1.clearSelection(); 
                 
                 loadTable();
+                
+                javax.swing.JFrame frameInduk = (javax.swing.JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
+                if (frameInduk instanceof HalamanUtama) {
+                    HalamanUtama hu = (HalamanUtama) frameInduk;
+
+                    CetakKarcis panelCetak = new CetakKarcis(kodeTarif);
+                    hu.pnlKonten.removeAll();
+                    hu.pnlKonten.add(panelCetak);
+                    hu.pnlKonten.repaint();
+                    hu.pnlKonten.revalidate();
+                }
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal simpan ke database lek: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Gagal simpan ke database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -479,7 +496,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
                 model.addRow(row);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal memuat data tabel lek: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Gagal memuat data tabel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
