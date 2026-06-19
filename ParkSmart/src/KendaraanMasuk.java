@@ -186,7 +186,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
 
-        jLabel11.setFont(new java.awt.Font("Algerian", 1, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(204, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Input Data Kendaraan");
@@ -302,7 +302,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
                     .addComponent(btnKembali)
                     .addComponent(btnSave)
                     .addComponent(btnHapus))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 190));

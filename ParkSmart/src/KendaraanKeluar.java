@@ -8,16 +8,16 @@
  * @author ABID
  */
 import javax.swing.JOptionPane;
-public class CetakKarcis extends javax.swing.JPanel {
+public class KendaraanKeluar extends javax.swing.JPanel {
 
     /**
      * Creates new form CetakKarcis
      */
-    public CetakKarcis() {
+    public KendaraanKeluar() {
         initComponents();
     }
     
-    public CetakKarcis(String kodeOtomatis) {
+    public KendaraanKeluar(String kodeOtomatis) {
         initComponents();
         txtCariData.setText(kodeOtomatis);
         btnCariActionPerformed(null);
@@ -73,7 +73,7 @@ public class CetakKarcis extends javax.swing.JPanel {
         );
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("Kode Karcis");
+        jLabel2.setText("Plat Nomer");
 
         txtCariData.addActionListener(this::txtCariDataActionPerformed);
 
