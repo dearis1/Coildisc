@@ -32,7 +32,7 @@ public class HalamanUtama extends javax.swing.JFrame {
         btnMasuk = new javax.swing.JButton();
         btnCetak = new javax.swing.JButton();
         btnAktivitas = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnKeluar = new javax.swing.JButton();
         pnlKonten = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -58,11 +58,11 @@ public class HalamanUtama extends javax.swing.JFrame {
         btnAktivitas.addActionListener(this::btnAktivitasActionPerformed);
         getContentPane().add(btnAktivitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, -1, 40));
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 255));
-        jButton1.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        jButton1.setText("Kendaraan Keluar");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, 40));
+        btnKeluar.setBackground(new java.awt.Color(204, 204, 255));
+        btnKeluar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
+        btnKeluar.setText("Kendaraan Keluar");
+        btnKeluar.addActionListener(this::btnKeluarActionPerformed);
+        getContentPane().add(btnKeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, 40));
 
         pnlKonten.setBackground(new java.awt.Color(204, 204, 204));
         pnlKonten.setLayout(new java.awt.CardLayout());
@@ -102,9 +102,17 @@ public class HalamanUtama extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAktivitasActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        KendaraanKeluar panelKeluar = new KendaraanKeluar();
+    
+        pnlKonten.removeAll();
+
+        pnlKonten.add(panelKeluar);
+
+        pnlKonten.repaint();
+        pnlKonten.revalidate();
+    }//GEN-LAST:event_btnKeluarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -134,8 +142,8 @@ public class HalamanUtama extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAktivitas;
     private javax.swing.JButton btnCetak;
+    private javax.swing.JButton btnKeluar;
     private javax.swing.JButton btnMasuk;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     public javax.swing.JPanel pnlKonten;
     // End of variables declaration//GEN-END:variables

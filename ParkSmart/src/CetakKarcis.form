@@ -54,7 +54,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="txtCariData" min="-2" pref="137" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnCari" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnCariKode" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -75,7 +75,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtCariData" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnCari" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCariKode" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="220" max="-2" attributes="0"/>
@@ -147,7 +147,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCariDataActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnCari">
+        <Component class="javax.swing.JButton" name="btnCariKode">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="cc" red="cc" type="rgb"/>
@@ -158,7 +158,7 @@
             <Property name="text" type="java.lang.String" value="Cari"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCariActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCariKodeActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCetak">

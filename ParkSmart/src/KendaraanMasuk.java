@@ -78,7 +78,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
         txtTarif = new javax.swing.JTextField();
         kendaraanMobil = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
-        btnSave = new javax.swing.JButton();
+        btnTambah = new javax.swing.JButton();
         cbPetugas = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -101,7 +101,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false
@@ -176,10 +176,10 @@ public class KendaraanMasuk extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel9.setText("Nama Petugas");
 
-        btnSave.setBackground(new java.awt.Color(204, 204, 255));
-        btnSave.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSave.setText("Tambahkan");
-        btnSave.addActionListener(this::btnSaveActionPerformed);
+        btnTambah.setBackground(new java.awt.Color(204, 204, 255));
+        btnTambah.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTambah.setText("Tambahkan");
+        btnTambah.addActionListener(this::btnTambahActionPerformed);
 
         cbPetugas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Petugas", "Dearis", "Khabid", "Rohman" }));
         cbPetugas.addActionListener(this::cbPetugasActionPerformed);
@@ -266,7 +266,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnSave))
+                    .addComponent(btnTambah))
                 .addContainerGap(94, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -300,7 +300,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(txtWarna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnKembali)
-                    .addComponent(btnSave)
+                    .addComponent(btnTambah)
                     .addComponent(btnHapus))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -334,21 +334,20 @@ public class KendaraanMasuk extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtJamActionPerformed
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
         String platNomor = txtPlat.getText().trim();
         String warna = txtWarna.getText().trim();
         String telp = txtTlp.getText().trim();
         String tanggalMasuk = txtTgl.getText();
         String waktuMasuk = txtJam.getText();
-        
         String pilihPetugas = cbPetugas.getSelectedItem().toString();
 
         String jenisKendaraan = "";
         if (kendaraanMobil.isSelected()) {
-            jenisKendaraan = "MOBIL";
+            jenisKendaraan = "Mobil";
         } else if (kendaraanMotor.isSelected()) {
-            jenisKendaraan = "MOTOR";
+            jenisKendaraan = "Motor";
         }
 
         if (jenisKendaraan.isEmpty()) {
@@ -362,10 +361,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Plat Nomor wajib diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (jenisKendaraan.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Pilih jenis kendaraan (Mobil/Motor)!", "Peringatan", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        
         String kodeTarif = kodeTarifAcak(jenisKendaraan);
 
         String sql = "INSERT INTO kendaraan (kode_tarif, plat_nomor, jenis_kendaraan, warna_kendaraan, "
@@ -415,7 +411,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Gagal simpan ke database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnSaveActionPerformed
+    }//GEN-LAST:event_btnTambahActionPerformed
 
     private void kendaraanMotorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kendaraanMotorActionPerformed
         // TODO add your handling code here:
@@ -428,8 +424,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
         txtTlp.setText("");
         txtPlat.setText("");
         txtWarna.setText("");
-
-        txtTarif.setText("");
+        txtTarif.setText("0");
 
         buttonGroup1.clearSelection();
 
@@ -463,6 +458,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
 
         javax.swing.table.DefaultTableCellRenderer tengah = new javax.swing.table.DefaultTableCellRenderer();
         tengah.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        
         for (int i = 0; i < jTable1.getColumnCount(); i++) {
             jTable1.getColumnModel().getColumn(i).setCellRenderer(tengah);
         }
@@ -503,7 +499,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnKembali;
-    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnTambah;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cbPetugas;

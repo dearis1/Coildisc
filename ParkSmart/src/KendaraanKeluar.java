@@ -5,7 +5,7 @@
 
 /**
  *
- * @author ABID
+ * @author ROHMAN
  */
 import javax.swing.JOptionPane;
 public class KendaraanKeluar extends javax.swing.JPanel {
@@ -20,7 +20,7 @@ public class KendaraanKeluar extends javax.swing.JPanel {
     public KendaraanKeluar(String kodeOtomatis) {
         initComponents();
         txtCariData.setText(kodeOtomatis);
-        btnCariActionPerformed(null);
+        btnCariPlatActionPerformed(null);
     }
 
     /**
@@ -37,11 +37,38 @@ public class KendaraanKeluar extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtCariData = new javax.swing.JTextField();
-        btnCari = new javax.swing.JButton();
-        btnCetak = new javax.swing.JButton();
+        btnCariPlat = new javax.swing.JButton();
+        btnKeluar = new javax.swing.JButton();
         btnKembali = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtStruk = new javax.swing.JTextArea();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        txtKode = new javax.swing.JTextField();
+        txtPlat = new javax.swing.JTextField();
+        txtJenisKendaraan = new javax.swing.JTextField();
+        txtTlp = new javax.swing.JTextField();
+        txtWarna = new javax.swing.JTextField();
+        txtTarif = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtJamMasuk = new javax.swing.JTextField();
+        txtJamKeluar = new javax.swing.JTextField();
+        txtTglMasuk = new javax.swing.JTextField();
+        txtTotalJam = new javax.swing.JTextField();
+        txtPetugas = new javax.swing.JTextField();
+        txtTotalBayar = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        txtTglKeluar = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel15 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(950, 390));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -53,7 +80,7 @@ public class KendaraanKeluar extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 255, 255));
-        jLabel1.setText("Cetak Karcis");
+        jLabel1.setText("Kendaraan Keluar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -62,14 +89,14 @@ public class KendaraanKeluar extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(415, 415, 415))
+                .addGap(397, 397, 397))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -77,24 +104,197 @@ public class KendaraanKeluar extends javax.swing.JPanel {
 
         txtCariData.addActionListener(this::txtCariDataActionPerformed);
 
-        btnCari.setBackground(new java.awt.Color(204, 204, 255));
-        btnCari.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCari.setText("Cari");
-        btnCari.addActionListener(this::btnCariActionPerformed);
+        btnCariPlat.setBackground(new java.awt.Color(204, 204, 255));
+        btnCariPlat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCariPlat.setText("Cari");
+        btnCariPlat.addActionListener(this::btnCariPlatActionPerformed);
 
-        btnCetak.setBackground(new java.awt.Color(204, 204, 255));
-        btnCetak.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCetak.setText("Cetak");
-        btnCetak.addActionListener(this::btnCetakActionPerformed);
+        btnKeluar.setBackground(new java.awt.Color(204, 204, 255));
+        btnKeluar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnKeluar.setText("Keluar");
+        btnKeluar.addActionListener(this::btnKeluarActionPerformed);
 
         btnKembali.setBackground(new java.awt.Color(204, 204, 255));
         btnKembali.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnKembali.setText("Kembali");
         btnKembali.addActionListener(this::btnKembaliActionPerformed);
 
-        txtStruk.setColumns(20);
-        txtStruk.setRows(5);
-        jScrollPane1.setViewportView(txtStruk);
+        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Kode Tarif");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setText("No Telp");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setText("Plat Nomer");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setText("Jenis Kendaraan");
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setText("Warna Kendaraan");
+
+        txtKode.setEditable(false);
+        txtKode.addActionListener(this::txtKodeActionPerformed);
+
+        txtPlat.setEditable(false);
+        txtPlat.addActionListener(this::txtPlatActionPerformed);
+
+        txtJenisKendaraan.setEditable(false);
+        txtJenisKendaraan.addActionListener(this::txtJenisKendaraanActionPerformed);
+
+        txtTlp.setEditable(false);
+        txtTlp.addActionListener(this::txtTlpActionPerformed);
+
+        txtWarna.setEditable(false);
+        txtWarna.addActionListener(this::txtWarnaActionPerformed);
+
+        txtTarif.setEditable(false);
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel8.setText("Tarif");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel9.setText("Tanggal Masuk");
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel10.setText("Jam Keluar");
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel11.setText("Jam Masuk");
+
+        txtJamMasuk.setEditable(false);
+        txtJamMasuk.addActionListener(this::txtJamMasukActionPerformed);
+
+        txtJamKeluar.setEditable(false);
+        txtJamKeluar.addActionListener(this::txtJamKeluarActionPerformed);
+
+        txtTglMasuk.setEditable(false);
+        txtTglMasuk.addActionListener(this::txtTglMasukActionPerformed);
+
+        txtTotalJam.setEditable(false);
+
+        txtPetugas.setEditable(false);
+        txtPetugas.addActionListener(this::txtPetugasActionPerformed);
+
+        txtTotalBayar.setEditable(false);
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel13.setText("Total Jam");
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel14.setText("Total Tarif");
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel16.setText("Tanggal Keluar");
+
+        txtTglKeluar.addActionListener(this::txtTglKeluarActionPerformed);
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel12.setText("Nama Petugas Masuk");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(196, 196, 196)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtTlp, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(txtKode, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtPlat, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(txtJenisKendaraan, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtWarna, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtTarif, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtJamMasuk, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                .addComponent(txtTglMasuk, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel11))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(txtTotalJam, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16)
+                            .addComponent(txtTglKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtJamKeluar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTotalBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14)))
+                    .addComponent(txtPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtJenisKendaraan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTglMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTglKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTlp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtWarna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtJamMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotalJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPlat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTarif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtJamKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotalBayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Petugas", "Dearis", "Khabid", "Rohman" }));
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel15.setText("Nama Petugas Keluar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -102,41 +302,43 @@ public class KendaraanKeluar extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(334, 334, 334)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnCetak)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnKembali))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtCariData, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCari))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(202, 202, 202)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addGap(334, 334, 334)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(txtCariData, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCariPlat)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(335, 335, 335)
+                .addComponent(btnKeluar)
+                .addGap(147, 147, 147)
+                .addComponent(btnKembali)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtCariData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCari))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCetak)
-                    .addComponent(btnKembali))
-                .addGap(0, 30, Short.MAX_VALUE))
+                    .addComponent(btnCariPlat)
+                    .addComponent(jLabel15)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnKembali)
+                    .addComponent(btnKeluar))
+                .addGap(0, 43, Short.MAX_VALUE))
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 390));
@@ -146,88 +348,156 @@ public class KendaraanKeluar extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCariDataActionPerformed
 
-    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+    private void btnCariPlatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariPlatActionPerformed
         // TODO add your handling code here:
-        String kodeCari = txtCariData.getText().trim().toUpperCase().replace(" ", "");
+        String platCari = txtCariData.getText().trim().toUpperCase().replace(" ", "");
 
-        if (kodeCari.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ketik Kode Karcis yang mau dicari!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        if (platCari.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Masukan Plat Nomor Terlebih Dahulu!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
-        if (kodeCari.length() == 6 && !kodeCari.contains("-")) {
-            kodeCari = kodeCari.substring(0, 2) + "-" + kodeCari.substring(2);
-        }
 
-        String sql = "SELECT * FROM kendaraan WHERE kode_tarif = ?";
+        String sql = "SELECT * FROM kendaraan WHERE REPLACE(plat_nomor, ' ', '') = ?";
 
         try {
             java.sql.Connection conn = Koneksi.getConnection();
             java.sql.PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, kodeCari);
+            ps.setString(1, platCari);
             java.sql.ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 String kode = rs.getString("kode_tarif");
+                String platAsli = rs.getString("plat_nomor");
+                String platFormat = platAsli;
+                if (platAsli != null) {
+                    platAsli = platAsli.trim().toUpperCase().replace(" ", "");
+                    if (platAsli.matches("^[A-Z]{1,2}\\d{1,4}[A-Z]{1,3}$")) {
+                        platFormat = platAsli.replaceAll("^([A-Z]{1,2})(\\d{1,4})([A-Z]{1,3})$", "$1 $2 $3");
+                    }
+                }
+                
                 String jenis = rs.getString("jenis_kendaraan");
-                String tgl = rs.getString("tanggal_masuk");
-                String jam = rs.getString("waktu_masuk");
-                int tarif = rs.getInt("tarif");
+                String warna = rs.getString("warna_kendaraan");
+                String telp = rs.getString("no_telp");
+                String tglMasukStr = rs.getString("tanggal_masuk");
+                String jamMasukStr = rs.getString("waktu_masuk");
+                int tarifPerJam = rs.getInt("tarif");
+                String petugas = rs.getString("petugas_jaga");
 
-                StringBuilder sb = new StringBuilder();
-                sb.append("\t                             --- PARKSMART STATION ---\n");
-                sb.append("\t                Jl. Letjen Suprapto, Cempaka Putih, Jakarta Pusat\n");
-                sb.append("\t\t             Telp. +6229-123456\n");
-                sb.append("\t==================================================\n");
-                sb.append("\t============ KARCIS TANDA MASUK PARKIR ============\n");
-                sb.append("\tKode Tiket\t\t: ").append(kode).append("\n");
-                sb.append("\tJenis Kendaraan\t: ").append(jenis.toUpperCase()).append("\n");
-                sb.append("\tTanggal\t\t: ").append(tgl).append("\n");
-                sb.append("\tJam Masuk\t\t: ").append(jam).append("\n");
-                sb.append("\tBiaya\t\t: Rp. ").append(tarif).append(" /Jam\n");
-                sb.append("\t==================================================\n");
-                sb.append("\t\t   Demi Kenyamanan dan Keamanan,\n");
-                sb.append("\t                       Mohon Tidak Meninggalkan Karcis Ini\n");
-                 sb.append("\t          Segala Bentuk Kehilangan Bukan Tanggung Jawab Kami\n");
-                sb.append("\t==================================================\n");
+                // Logika Hitung Waktu Parkir Realtime
+                java.time.LocalDate tglMasuk = java.time.LocalDate.parse(tglMasukStr);
+                java.time.LocalTime jamMasuk = java.time.LocalTime.parse(jamMasukStr);
+                java.time.LocalDateTime waktuAwal = java.time.LocalDateTime.of(tglMasuk, jamMasuk);
+                
+                // WAKTU SISTEM REALTIME HARI INI
+                java.time.LocalDateTime waktuAkhir = java.time.LocalDateTime.now();
+                String jamKeluarStr = waktuAkhir.toLocalTime().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss"));
+                String tglKeluarStr = waktuAkhir.toLocalDate().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-                txtStruk.setText(sb.toString());
+                // Hitung durasi jam
+                long selisihMenit = java.time.temporal.ChronoUnit.MINUTES.between(waktuAwal, waktuAkhir);
+                long totalJam = (long) Math.ceil(selisihMenit / 60.0);
+                if (totalJam <= 0) totalJam = 1; // Minimal bayar 1 jam
+
+                long totalBayar = totalJam * tarifPerJam;
+
+                txtKode.setText(kode);
+                txtJenisKendaraan.setText(jenis);
+                txtTglMasuk.setText(tglMasukStr);
+                txtTglKeluar.setText(tglKeluarStr);
+                txtPetugas.setText(petugas);
+
+                txtTlp.setText(telp);
+                txtWarna.setText(warna);
+                txtJamMasuk.setText(jamMasukStr);
+                txtTotalJam.setText(totalJam + " Jam");
+
+                txtPlat.setText(platFormat);
+                txtTarif.setText("Rp. " + tarifPerJam);
+                txtJamKeluar.setText(jamKeluarStr);
+                txtTotalBayar.setText("Rp. " + totalBayar);
 
             } else {
-                JOptionPane.showMessageDialog(this, "Kode Karcis " + kodeCari + " tidak ditemukan lek!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-                txtStruk.setText("");
+                JOptionPane.showMessageDialog(this, "Plat Nomor " + txtCariData.getText() + " tidak ditemukan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+                bersihkanForm();
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal cari data lek: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Gagal koneksi database lek: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnCariActionPerformed
+    }//GEN-LAST:event_btnCariPlatActionPerformed
 
-    private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
+    private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
         // TODO add your handling code here:
-        if (txtStruk.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Belum ada data karcis yang dicari lek!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        if (txtKode.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Cari data plat nomor kendaraan yang valid!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
+        String petugasKeluar = jComboBox1.getSelectedItem().toString();
+        if (petugasKeluar.equals("Pilih Petugas")) {
+            JOptionPane.showMessageDialog(this, "Silakan pilih nama Petugas Kelur!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String platCari = txtCariData.getText().trim().toUpperCase().replace(" ", "");
+        String petugasMasuk = txtPetugas.getText();
+        
+        String jamKeluarStr = txtJamKeluar.getText();
+        java.time.LocalDate tanggalHariIni = java.time.LocalDate.now();
+        String tglKeluarStr = tanggalHariIni.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        
+        String pesanSukses = "Pembayaran Sukses!\n\n"
+                           + "Detail Konfirmasi:\n"
+                           + "- Disahkan Masuk Oleh : " + petugasMasuk + "\n"
+                           + "- Disahkan Keluar Oleh : " + petugasKeluar + "\n\n"
+                           + "- Tanggal Keluar : " + tglKeluarStr + "\n"
+                           + "- Waktu Keluar : " + jamKeluarStr + "\n\n"
+                           + "Data log lengkap berhasil disimpan & kendaraan diizinkan keluar!";;
+
+        String sqlUpdate = "UPDATE kendaraan SET petugas_keluar = ?, tanggal_keluar = ?, waktu_keluar = ? WHERE REPLACE(plat_nomor, ' ', '') = ?";
+        String sql = "DELETE FROM kendaraan WHERE REPLACE(plat_nomor, ' ', '') = ?";
+
         try {
-            java.text.MessageFormat header = new java.text.MessageFormat("Karcis ParkSmart Masuk");
-            java.text.MessageFormat footer = new java.text.MessageFormat("Halaman {0}");
+            java.sql.Connection conn = Koneksi.getConnection();
+            
+            java.sql.PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate);
+            psUpdate.setString(1, petugasKeluar);
+            psUpdate.setString(2, tglKeluarStr);
+            psUpdate.setString(3, jamKeluarStr);
+            psUpdate.setString(4, platCari);
+            psUpdate.executeUpdate();
+            
+            java.sql.PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, platCari);
 
-            boolean complete = txtStruk.print(header, footer, true, null, null, true);
+            int suksesHapus = ps.executeUpdate();
 
-            if (complete) {
-                JOptionPane.showMessageDialog(this, "Karcis sukses diproses untuk PDF/Printer!", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            if (suksesHapus > 0) {
+                JOptionPane.showMessageDialog(this, pesanSukses, "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                bersihkanForm();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal menghapus data kendaraan dari sistem!", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
-        } catch (java.awt.print.PrinterException e) {
-            JOptionPane.showMessageDialog(this, "Gagal memproses cetak PDF lek: " + e.getMessage(), "Printer Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnCetakActionPerformed
+    }//GEN-LAST:event_btnKeluarActionPerformed
 
     private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
         // TODO add your handling code here:
-        HalamanUtama hu = new HalamanUtama("");
+        String petugasAktif = jComboBox1.getSelectedItem().toString();
+    
+        if (petugasAktif.equals("Pilih Petugas")) {
+            petugasAktif = txtPetugas.getText();
+        }
+
+        if (petugasAktif.isEmpty()) {
+            petugasAktif = "Petugas"; 
+        }
+
+        HalamanUtama hu = new HalamanUtama(petugasAktif);
         hu.setVisible(true);
 
         javax.swing.JFrame frameInduk = (javax.swing.JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
@@ -236,17 +506,101 @@ public class KendaraanKeluar extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnKembaliActionPerformed
 
+    private void txtKodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKodeActionPerformed
+
+    private void txtPlatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPlatActionPerformed
+
+    private void txtJenisKendaraanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJenisKendaraanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtJenisKendaraanActionPerformed
+
+    private void txtTlpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTlpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTlpActionPerformed
+
+    private void txtJamMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJamMasukActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtJamMasukActionPerformed
+
+    private void txtJamKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJamKeluarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtJamKeluarActionPerformed
+
+    private void txtTglMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTglMasukActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTglMasukActionPerformed
+
+    private void txtWarnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtWarnaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtWarnaActionPerformed
+
+    private void txtTglKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTglKeluarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTglKeluarActionPerformed
+
+    private void txtPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPetugasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPetugasActionPerformed
+    private void bersihkanForm() {
+        txtCariData.setText("");
+        txtPetugas.setText("");
+        txtKode.setText("");
+        txtJenisKendaraan.setText("");
+        txtWarna.setText("");
+        txtTglMasuk.setText("");
+        txtJamMasuk.setText("");
+        txtJamKeluar.setText("");
+        txtTglKeluar.setText("");
+        txtTlp.setText("");
+        txtTotalJam.setText("");
+        txtPlat.setText("");
+        txtTarif.setText("");
+        txtTotalBayar.setText("");
+        jComboBox1.setSelectedIndex(0);
+        txtCariData.requestFocus();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCari;
-    private javax.swing.JButton btnCetak;
+    private javax.swing.JButton btnCariPlat;
+    private javax.swing.JButton btnKeluar;
     private javax.swing.JButton btnKembali;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField txtCariData;
-    private javax.swing.JTextArea txtStruk;
+    private javax.swing.JTextField txtJamKeluar;
+    private javax.swing.JTextField txtJamMasuk;
+    private javax.swing.JTextField txtJenisKendaraan;
+    private javax.swing.JTextField txtKode;
+    private javax.swing.JTextField txtPetugas;
+    private javax.swing.JTextField txtPlat;
+    private javax.swing.JTextField txtTarif;
+    private javax.swing.JTextField txtTglKeluar;
+    private javax.swing.JTextField txtTglMasuk;
+    private javax.swing.JTextField txtTlp;
+    private javax.swing.JTextField txtTotalBayar;
+    private javax.swing.JTextField txtTotalJam;
+    private javax.swing.JTextField txtWarna;
     // End of variables declaration//GEN-END:variables
 }

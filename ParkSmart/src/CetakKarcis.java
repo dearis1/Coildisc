@@ -20,7 +20,7 @@ public class CetakKarcis extends javax.swing.JPanel {
     public CetakKarcis(String kodeOtomatis) {
         initComponents();
         txtCariData.setText(kodeOtomatis);
-        btnCariActionPerformed(null);
+        btnCariKodeActionPerformed(null);
     }
 
     /**
@@ -37,7 +37,7 @@ public class CetakKarcis extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtCariData = new javax.swing.JTextField();
-        btnCari = new javax.swing.JButton();
+        btnCariKode = new javax.swing.JButton();
         btnCetak = new javax.swing.JButton();
         btnKembali = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -77,10 +77,10 @@ public class CetakKarcis extends javax.swing.JPanel {
 
         txtCariData.addActionListener(this::txtCariDataActionPerformed);
 
-        btnCari.setBackground(new java.awt.Color(204, 204, 255));
-        btnCari.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCari.setText("Cari");
-        btnCari.addActionListener(this::btnCariActionPerformed);
+        btnCariKode.setBackground(new java.awt.Color(204, 204, 255));
+        btnCariKode.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCariKode.setText("Cari");
+        btnCariKode.addActionListener(this::btnCariKodeActionPerformed);
 
         btnCetak.setBackground(new java.awt.Color(204, 204, 255));
         btnCetak.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -115,7 +115,7 @@ public class CetakKarcis extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtCariData, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCari))))
+                                .addComponent(btnCariKode))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(202, 202, 202)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -129,7 +129,7 @@ public class CetakKarcis extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtCariData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCari))
+                    .addComponent(btnCariKode))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -146,7 +146,7 @@ public class CetakKarcis extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCariDataActionPerformed
 
-    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+    private void btnCariKodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariKodeActionPerformed
         // TODO add your handling code here:
         String kodeCari = txtCariData.getText().trim().toUpperCase().replace(" ", "");
 
@@ -201,7 +201,7 @@ public class CetakKarcis extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Gagal cari data lek: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnCariActionPerformed
+    }//GEN-LAST:event_btnCariKodeActionPerformed
 
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
         // TODO add your handling code here:
@@ -238,7 +238,7 @@ public class CetakKarcis extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCari;
+    private javax.swing.JButton btnCariKode;
     private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnKembali;
     private javax.swing.JLabel jLabel1;
