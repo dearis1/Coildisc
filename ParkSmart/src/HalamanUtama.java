@@ -31,8 +31,9 @@ public class HalamanUtama extends javax.swing.JFrame {
 
         btnMasuk = new javax.swing.JButton();
         btnCetak = new javax.swing.JButton();
-        btnAktivitas = new javax.swing.JButton();
+        btnKeuangan = new javax.swing.JButton();
         btnKeluar = new javax.swing.JButton();
+        btnAktivitas = new javax.swing.JButton();
         pnlKonten = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -44,25 +45,31 @@ public class HalamanUtama extends javax.swing.JFrame {
         btnMasuk.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnMasuk.setText("Kendaraan Masuk");
         btnMasuk.addActionListener(this::btnMasukActionPerformed);
-        getContentPane().add(btnMasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, 40));
+        getContentPane().add(btnMasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, 40));
 
         btnCetak.setBackground(new java.awt.Color(204, 204, 255));
         btnCetak.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnCetak.setText("Cetak Karcis");
         btnCetak.addActionListener(this::btnCetakActionPerformed);
-        getContentPane().add(btnCetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, 40));
+        getContentPane().add(btnCetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, 40));
 
-        btnAktivitas.setBackground(new java.awt.Color(204, 204, 255));
-        btnAktivitas.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnAktivitas.setText("Aktivitas");
-        btnAktivitas.addActionListener(this::btnAktivitasActionPerformed);
-        getContentPane().add(btnAktivitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, -1, 40));
+        btnKeuangan.setBackground(new java.awt.Color(204, 204, 255));
+        btnKeuangan.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
+        btnKeuangan.setText("Laporan Keuangan");
+        btnKeuangan.addActionListener(this::btnKeuanganActionPerformed);
+        getContentPane().add(btnKeuangan, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, -1, 40));
 
         btnKeluar.setBackground(new java.awt.Color(204, 204, 255));
         btnKeluar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
         btnKeluar.setText("Kendaraan Keluar");
         btnKeluar.addActionListener(this::btnKeluarActionPerformed);
-        getContentPane().add(btnKeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, 40));
+        getContentPane().add(btnKeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, -1, 40));
+
+        btnAktivitas.setBackground(new java.awt.Color(204, 204, 255));
+        btnAktivitas.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
+        btnAktivitas.setText("Aktivitas");
+        btnAktivitas.addActionListener(this::btnAktivitasActionPerformed);
+        getContentPane().add(btnAktivitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, -1, 40));
 
         pnlKonten.setBackground(new java.awt.Color(204, 204, 204));
         pnlKonten.setLayout(new java.awt.CardLayout());
@@ -98,9 +105,9 @@ public class HalamanUtama extends javax.swing.JFrame {
         pnlKonten.repaint();
     }//GEN-LAST:event_btnCetakActionPerformed
 
-    private void btnAktivitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAktivitasActionPerformed
+    private void btnKeuanganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeuanganActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAktivitasActionPerformed
+    }//GEN-LAST:event_btnKeuanganActionPerformed
 
     private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
         // TODO add your handling code here:
@@ -113,6 +120,19 @@ public class HalamanUtama extends javax.swing.JFrame {
         pnlKonten.repaint();
         pnlKonten.revalidate();
     }//GEN-LAST:event_btnKeluarActionPerformed
+
+    private void btnAktivitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAktivitasActionPerformed
+        // TODO add your handling code here:
+        pnlKonten.removeAll();
+    
+        LogAktivitas pnlLog = new LogAktivitas();
+
+        pnlLog.setSize(pnlKonten.getWidth(), pnlKonten.getHeight());
+
+        pnlKonten.add(pnlLog);
+        pnlKonten.repaint();
+        pnlKonten.revalidate();
+    }//GEN-LAST:event_btnAktivitasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,6 +163,7 @@ public class HalamanUtama extends javax.swing.JFrame {
     private javax.swing.JButton btnAktivitas;
     private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnKeluar;
+    private javax.swing.JButton btnKeuangan;
     private javax.swing.JButton btnMasuk;
     private javax.swing.JLabel jLabel1;
     public javax.swing.JPanel pnlKonten;

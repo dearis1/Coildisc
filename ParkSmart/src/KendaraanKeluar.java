@@ -67,8 +67,9 @@ public class KendaraanKeluar extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         txtTglKeluar = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbPetugasKeluar = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
+        chkKarcisHilang = new javax.swing.JCheckBox();
 
         setPreferredSize(new java.awt.Dimension(950, 390));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -291,18 +292,24 @@ public class KendaraanKeluar extends javax.swing.JPanel {
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Petugas", "Dearis", "Khabid", "Rohman" }));
+        cbPetugasKeluar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Petugas", "Dearis", "Khabid", "Rohman" }));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel15.setText("Nama Petugas Keluar");
+
+        chkKarcisHilang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        chkKarcisHilang.setText("Karcis Hilang");
+        chkKarcisHilang.addActionListener(this::chkKarcisHilangActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(334, 334, 334)
+                .addGap(232, 232, 232)
+                .addComponent(chkKarcisHilang)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(txtCariData, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -311,7 +318,7 @@ public class KendaraanKeluar extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbPetugasKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -331,7 +338,8 @@ public class KendaraanKeluar extends javax.swing.JPanel {
                     .addComponent(txtCariData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCariPlat)
                     .addComponent(jLabel15)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbPetugasKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chkKarcisHilang))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -357,7 +365,7 @@ public class KendaraanKeluar extends javax.swing.JPanel {
             return;
         }
 
-        String sql = "SELECT * FROM kendaraan WHERE REPLACE(plat_nomor, ' ', '') = ?";
+        String sql = "SELECT * FROM data_kendaraan WHERE REPLACE(plat_nomor, ' ', '') = ?";
 
         try {
             java.sql.Connection conn = Koneksi.getConnection();
@@ -400,6 +408,10 @@ public class KendaraanKeluar extends javax.swing.JPanel {
                 if (totalJam <= 0) totalJam = 1; // Minimal bayar 1 jam
 
                 long totalBayar = totalJam * tarifPerJam;
+                if (chkKarcisHilang.isSelected()) {
+                    int nominalDenda = jenis.equalsIgnoreCase("Motor") ? 25000 : 50000;
+                    totalBayar += nominalDenda;
+                }
 
                 txtKode.setText(kode);
                 txtJenisKendaraan.setText(jenis);
@@ -434,7 +446,7 @@ public class KendaraanKeluar extends javax.swing.JPanel {
             return;
         }
 
-        String petugasKeluar = jComboBox1.getSelectedItem().toString();
+        String petugasKeluar = cbPetugasKeluar.getSelectedItem().toString();
         if (petugasKeluar.equals("Pilih Petugas")) {
             JOptionPane.showMessageDialog(this, "Silakan pilih nama Petugas Kelur!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
@@ -455,25 +467,65 @@ public class KendaraanKeluar extends javax.swing.JPanel {
                            + "- Waktu Keluar : " + jamKeluarStr + "\n\n"
                            + "Data log lengkap berhasil disimpan & kendaraan diizinkan keluar!";;
 
-        String sqlUpdate = "UPDATE kendaraan SET petugas_keluar = ?, tanggal_keluar = ?, waktu_keluar = ? WHERE REPLACE(plat_nomor, ' ', '') = ?";
-        String sql = "DELETE FROM kendaraan WHERE REPLACE(plat_nomor, ' ', '') = ?";
+        String sqlDelete = "DELETE FROM data_kendaraan WHERE REPLACE(plat_nomor, ' ', '') = ?";
 
         try {
             java.sql.Connection conn = Koneksi.getConnection();
             
-            java.sql.PreparedStatement psUpdate = conn.prepareStatement(sqlUpdate);
-            psUpdate.setString(1, petugasKeluar);
-            psUpdate.setString(2, tglKeluarStr);
-            psUpdate.setString(3, jamKeluarStr);
-            psUpdate.setString(4, platCari);
-            psUpdate.executeUpdate();
+            String sqlAmbil = "SELECT * FROM data_kendaraan WHERE REPLACE(plat_nomor, ' ', '') = ?";
+            java.sql.PreparedStatement psAmbil = conn.prepareStatement(sqlAmbil);
+            psAmbil.setString(1, platCari);
+            java.sql.ResultSet rs = psAmbil.executeQuery();
             
-            java.sql.PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, platCari);
+            if (rs.next()) {
+                String kode = rs.getString("kode_tarif");
+                String telp = rs.getString("no_telp");
+                String platAsli = rs.getString("plat_nomor");
+                String jenis = rs.getString("jenis_kendaraan");
+                String warna = rs.getString("warna_kendaraan");
+                String tglMasuk = rs.getString("tanggal_masuk");
+                String jmMasuk = rs.getString("waktu_masuk");
+                int tarifAwal = rs.getInt("tarif");
+                String petMasuk = rs.getString("petugas_jaga");
+                
+                int totBayar = Integer.parseInt(txtTotalBayar.getText().replace("Rp. ", "").trim());
+                String durasiParkir = txtTotalJam.getText().trim();
+                
+                int nilaiDenda = 0;
+                if (chkKarcisHilang.isSelected()) {
+                    nilaiDenda = jenis.equalsIgnoreCase("Motor") ? 25000 : 50000;
+                }
 
+                String sqlInsertRiwayat = "INSERT INTO riwayat_parkir (kode_tarif, no_telp, plat_nomor, jenis_kendaraan, warna_kendaraan, "
+                        + "tanggal_masuk, waktu_masuk, tanggal_keluar, waktu_keluar, tarif, petugas_jaga, petugas_keluar, durasi, total_tarif, denda, status) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                
+                java.sql.PreparedStatement psArsip = conn.prepareStatement(sqlInsertRiwayat);
+                psArsip.setString(1, kode);
+                psArsip.setString(2, telp);
+                psArsip.setString(3, platAsli);
+                psArsip.setString(4, jenis);
+                psArsip.setString(5, warna);
+                psArsip.setString(6, tglMasuk);
+                psArsip.setString(7, jmMasuk);
+                psArsip.setString(8, tglKeluarStr);
+                psArsip.setString(9, jamKeluarStr);
+                psArsip.setInt(10, totBayar);
+                psArsip.setString(11, petMasuk);
+                psArsip.setString(12, petugasKeluar);
+                psArsip.setString(13, durasiParkir);
+                psArsip.setInt(14, totBayar);
+                psArsip.setInt(15, nilaiDenda);
+                psArsip.setString(16, "Keluar");
+                psArsip.executeUpdate();
+            }
+            
+            java.sql.PreparedStatement ps = conn.prepareStatement(sqlDelete);
+            ps.setString(1, platCari);
             int suksesHapus = ps.executeUpdate();
 
             if (suksesHapus > 0) {
+                Koneksi.catatAktivitas(petugasKeluar, "Kendaraan Keluar", txtKode.getText());
                 JOptionPane.showMessageDialog(this, pesanSukses, "Sukses", JOptionPane.INFORMATION_MESSAGE);
                 bersihkanForm();
             } else {
@@ -487,7 +539,7 @@ public class KendaraanKeluar extends javax.swing.JPanel {
 
     private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
         // TODO add your handling code here:
-        String petugasAktif = jComboBox1.getSelectedItem().toString();
+        String petugasAktif = cbPetugasKeluar.getSelectedItem().toString();
     
         if (petugasAktif.equals("Pilih Petugas")) {
             petugasAktif = txtPetugas.getText();
@@ -545,6 +597,13 @@ public class KendaraanKeluar extends javax.swing.JPanel {
     private void txtPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPetugasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPetugasActionPerformed
+
+    private void chkKarcisHilangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkKarcisHilangActionPerformed
+        // TODO add your handling code here:
+        if (!txtCariData.getText().isEmpty()) {
+            btnCariPlatActionPerformed(null);
+        }
+    }//GEN-LAST:event_chkKarcisHilangActionPerformed
     private void bersihkanForm() {
         txtCariData.setText("");
         txtPetugas.setText("");
@@ -560,7 +619,7 @@ public class KendaraanKeluar extends javax.swing.JPanel {
         txtPlat.setText("");
         txtTarif.setText("");
         txtTotalBayar.setText("");
-        jComboBox1.setSelectedIndex(0);
+        cbPetugasKeluar.setSelectedIndex(0);
         txtCariData.requestFocus();
     }
 
@@ -568,7 +627,8 @@ public class KendaraanKeluar extends javax.swing.JPanel {
     private javax.swing.JButton btnCariPlat;
     private javax.swing.JButton btnKeluar;
     private javax.swing.JButton btnKembali;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbPetugasKeluar;
+    private javax.swing.JCheckBox chkKarcisHilang;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -9,6 +9,7 @@
  */
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -30,6 +31,24 @@ public class Koneksi {
             }
         }
         return mysqlkonek;
+    }
+    
+    public static void catatAktivitas(String namaPetugas, String status, String kodeTarif) {
+        String sql = "INSERT INTO log_aktivitas (tanggal, waktu, petugas, status, kode_tarif) VALUES (CURDATE(), CURTIME(), ?, ?, ?)";
+        
+        try {
+            Connection conn = Koneksi.getConnection(); 
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            ps.setString(1, namaPetugas);
+            ps.setString(2, status);
+            ps.setString(3, kodeTarif);
+            
+            ps.executeUpdate(); // Eksekusi tembak ke tabel log_aktivitas lek!
+            System.out.println("Log aktivitas berhasil dicatat!");
+        } catch (SQLException e) {
+            System.out.println("Gagal mencatat log ke MySQL! Errornya: " + e.getMessage());
+        }
     }
     
     public static void main(String[] args) {

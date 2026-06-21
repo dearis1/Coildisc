@@ -322,8 +322,18 @@ public class KendaraanMasuk extends javax.swing.JPanel {
 
     private void kendaraanMobilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kendaraanMobilActionPerformed
         // TODO add your handling code here:
-        txtTarif.setText("5000");
-        txtTarif.setEditable(false);
+        try {
+            java.sql.Connection conn = Koneksi.getConnection();
+            String sql = "SELECT tarif_per_jam FROM tarif WHERE jenis_kendaraan = 'Mobil'";
+            java.sql.PreparedStatement ps = conn.prepareStatement(sql);
+            java.sql.ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                txtTarif.setText(String.valueOf(rs.getInt("tarif_per_jam")));
+            }
+            txtTarif.setEditable(false);
+        } catch (Exception e) {
+            txtTarif.setText("5000");
+        }
     }//GEN-LAST:event_kendaraanMobilActionPerformed
 
     private void txtTglActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTglActionPerformed
@@ -364,7 +374,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
         
         String kodeTarif = kodeTarifAcak(jenisKendaraan);
 
-        String sql = "INSERT INTO kendaraan (kode_tarif, plat_nomor, jenis_kendaraan, warna_kendaraan, "
+        String sql = "INSERT INTO data_kendaraan (kode_tarif, plat_nomor, jenis_kendaraan, warna_kendaraan, "
                    + "tanggal_masuk, waktu_masuk, tarif, no_telp, petugas_jaga) "
                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -385,6 +395,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
             int hasil = ps.executeUpdate();
 
             if (hasil > 0) {
+                Koneksi.catatAktivitas(pilihPetugas, "Kendaraan Masuk", kodeTarif);
                 JOptionPane.showMessageDialog(this, "Kendaraan " + platNomor + " berhasil masuk! Kode Tiket: " + kodeTarif, "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
                 txtPlat.setText("");
@@ -400,7 +411,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
                 if (frameInduk instanceof HalamanUtama) {
                     HalamanUtama hu = (HalamanUtama) frameInduk;
 
-                    CetakKarcis panelCetak = new CetakKarcis(kodeTarif);
+                    CetakKarcis panelCetak = new CetakKarcis(kodeTarif, pilihPetugas);
                     hu.pnlKonten.removeAll();
                     hu.pnlKonten.add(panelCetak);
                     hu.pnlKonten.repaint();
@@ -415,8 +426,18 @@ public class KendaraanMasuk extends javax.swing.JPanel {
 
     private void kendaraanMotorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kendaraanMotorActionPerformed
         // TODO add your handling code here:
-        txtTarif.setText("2000");
-        txtTarif.setEditable(false);
+        try {
+            java.sql.Connection conn = Koneksi.getConnection();
+            String sql = "SELECT tarif_per_jam FROM tarif WHERE jenis_kendaraan = 'Motor'";
+            java.sql.PreparedStatement ps = conn.prepareStatement(sql);
+            java.sql.ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                txtTarif.setText(String.valueOf(rs.getInt("tarif_per_jam")));
+            }
+            txtTarif.setEditable(false);
+        } catch (Exception e) {
+            txtTarif.setText("2000");
+        }
     }//GEN-LAST:event_kendaraanMotorActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
@@ -463,7 +484,7 @@ public class KendaraanMasuk extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(i).setCellRenderer(tengah);
         }
 
-        String sql = "SELECT * FROM kendaraan ORDER BY tanggal_masuk DESC, waktu_masuk DESC";
+        String sql = "SELECT * FROM data_kendaraan ORDER BY tanggal_masuk DESC, waktu_masuk DESC";
 
         try {
             java.sql.Connection conn = Koneksi.getConnection();

@@ -9,7 +9,7 @@
  */
 import javax.swing.JOptionPane;
 public class CetakKarcis extends javax.swing.JPanel {
-
+    private String petugasAktif = "";
     /**
      * Creates new form CetakKarcis
      */
@@ -17,8 +17,9 @@ public class CetakKarcis extends javax.swing.JPanel {
         initComponents();
     }
     
-    public CetakKarcis(String kodeOtomatis) {
+    public CetakKarcis(String kodeOtomatis, String namaPetugas) {
         initComponents();
+        this.petugasAktif = namaPetugas;
         txtCariData.setText(kodeOtomatis);
         btnCariKodeActionPerformed(null);
     }
@@ -159,7 +160,7 @@ public class CetakKarcis extends javax.swing.JPanel {
             kodeCari = kodeCari.substring(0, 2) + "-" + kodeCari.substring(2);
         }
 
-        String sql = "SELECT * FROM kendaraan WHERE kode_tarif = ?";
+        String sql = "SELECT * FROM data_kendaraan WHERE kode_tarif = ?";
 
         try {
             java.sql.Connection conn = Koneksi.getConnection();
@@ -206,7 +207,7 @@ public class CetakKarcis extends javax.swing.JPanel {
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
         // TODO add your handling code here:
         if (txtStruk.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Belum ada data karcis yang dicari lek!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Belum ada data karcis yang dicari!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -227,7 +228,7 @@ public class CetakKarcis extends javax.swing.JPanel {
 
     private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
         // TODO add your handling code here:
-        HalamanUtama hu = new HalamanUtama("");
+        HalamanUtama hu = new HalamanUtama(this.petugasAktif);
         hu.setVisible(true);
 
         javax.swing.JFrame frameInduk = (javax.swing.JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
