@@ -27,6 +27,33 @@ public class ItemLog extends javax.swing.JPanel {
         } catch (Exception e) {
             System.out.println("Gambar logo tidak ditemukan lek");
         }
+        
+        this.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                String statusLayar = lblStatus.getText(); 
+                String kodeDinamis = lblKode.getText();
+                
+                if (statusLayar.toLowerCase().contains("masuk")) {
+                    DetailLogMasuk detailMasuk = new DetailLogMasuk(null, true, kodeDinamis); 
+                    detailMasuk.setLocationRelativeTo(null);
+                    detailMasuk.setVisible(true);
+                } else {
+                    DetailLog detailKeluar = new DetailLog(null, true, kodeDinamis); 
+                    detailKeluar.setLocationRelativeTo(null);
+                    detailKeluar.setVisible(true);
+                }
+            }
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                setBackground(new java.awt.Color(230, 245, 255));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                setBackground(new java.awt.Color(204, 255, 255));
+            }
+        });
     }
 
     /**
@@ -55,8 +82,10 @@ public class ItemLog extends javax.swing.JPanel {
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(102, 102, 102), new java.awt.Color(51, 51, 51)));
         jPanel1.setOpaque(false);
 
-        lblStatus.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        lblStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblStatus.setPreferredSize(new java.awt.Dimension(116, 20));
+
+        lblWaktu.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
 
         lblKode.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblKode.setMaximumSize(new java.awt.Dimension(60, 20));
@@ -78,8 +107,8 @@ public class ItemLog extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblWaktu))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 311, Short.MAX_VALUE)
+                    .addComponent(lblWaktu, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 299, Short.MAX_VALUE)
                 .addComponent(lblKode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
