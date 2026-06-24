@@ -12,8 +12,7 @@ public class DetailLog extends javax.swing.JDialog {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DetailLog.class.getName());
     
     private String kodeTarifTerima;
-    private boolean detailTarifDasar = false; 
-    private boolean detailDenda = false;
+    
     /**
      * Creates new form DetailLog
      */
@@ -66,20 +65,57 @@ public class DetailLog extends javax.swing.JDialog {
                 
                 int dendaVal = rs.getInt("denda");
                 int totalVal = rs.getInt("total_tarif");
-                int tarifDasarVal = totalVal - dendaVal; 
+                int tarifDasarVal = totalVal - dendaVal;
+                
+                String durasiStr = rs.getString("durasi");
+                String jenisKendaraan = rs.getString("jenis_kendaraan").toLowerCase();
+                
+                String angkaDurasi = durasiStr.replaceAll("[^0-9]", ""); 
+                if (angkaDurasi.isEmpty()) angkaDurasi = "0";
+                int jamParkir = Integer.parseInt(angkaDurasi);
+                
+                int tarifPerJam;
+                if (jenisKendaraan.contains("motor")) {
+                    tarifPerJam = 2000;
+                } else if (jenisKendaraan.contains("mobil")) {
+                    tarifPerJam = 5000;
+                } else {
+                    tarifPerJam = (jamParkir > 0) ? (tarifDasarVal / jamParkir) : tarifDasarVal;
+                }
+                
+                if (dendaVal == 0 && tarifDasarVal > (tarifPerJam * jamParkir) && jamParkir > 0) {
+                    tarifDasarVal = tarifPerJam * jamParkir;
+                }
                 
                 lblTarif.setText("Rp " + tarifDasarVal);
-                lblDurasi.setText(rs.getString("durasi"));
+                lblDurasi.setText(durasiStr);
                 lblDenda.setText("Rp " + dendaVal);
                 lblTotal.setText("Rp " + totalVal);
+                
+                detailTarif.setText("Tarif Dasar - Rp " + tarifPerJam + "/Jam");
+                detailTarif1.setText(durasiStr + " = Rp " + tarifDasarVal);
+                
+                if (dendaVal > 0) {
+                    detailDenda.setText("Denda - Karcis Hilang");
+                    detailDenda1.setText("Rp " + dendaVal);
+                } else {
+                    detailDenda.setText("Denda - Tidak Ada");
+                    detailDenda1.setText("Rp 0");
+                }
+                
+                detailTarif.setVisible(true);
+                detailTarif1.setVisible(true);
+                detailDenda.setVisible(true);
+                detailDenda1.setVisible(true);
+                
             } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Data riwayat keluar tidak ditemukan lek!");
+                javax.swing.JOptionPane.showMessageDialog(this, "Data riwayat keluar tidak ditemukan!");
             }
             
             rs.close();
             ps.close();
         } catch (Exception e) {
-            System.out.println("Gagal load data detail riwayat keluar lek: " + e.getMessage());
+            System.out.println("Gagal load data detail riwayat keluar: " + e.getMessage());
         }
     }
 
@@ -116,7 +152,13 @@ public class DetailLog extends javax.swing.JDialog {
         lblTarif = new javax.swing.JLabel();
         lblDenda = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
         jLabel21 = new javax.swing.JLabel();
+        detailDenda = new javax.swing.JLabel();
+        detailTarif = new javax.swing.JLabel();
+        detailTarif1 = new javax.swing.JLabel();
+        detailDenda1 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -229,8 +271,31 @@ public class DetailLog extends javax.swing.JDialog {
         lblTotal.setText("Rp 29.000");
         jPanel1.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(456, 200, -1, -1));
 
+        jSeparator2.setBackground(new java.awt.Color(204, 204, 204));
+        jSeparator2.setForeground(new java.awt.Color(51, 51, 51));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 410, 10));
+
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ParkSmart.jpg"))); // NOI18N
         jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 630, 250));
+
+        detailDenda.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        detailDenda.setText("Denda - Karcis Hilang");
+        jPanel1.add(detailDenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, -1, -1));
+
+        detailTarif.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        detailTarif.setText("Tarif Dasar - Rp 5.000/Jam");
+        jPanel1.add(detailTarif, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, -1, -1));
+
+        detailTarif1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        detailTarif1.setText("6 jam = Rp 30.000");
+        jPanel1.add(detailTarif1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 260, -1, -1));
+
+        detailDenda1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        detailDenda1.setText("Rp 50.000");
+        jPanel1.add(detailDenda1, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 290, -1, -1));
+
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ParkSmart.jpg"))); // NOI18N
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 630, 100));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -290,11 +355,16 @@ public class DetailLog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel detailDenda;
+    private javax.swing.JLabel detailDenda1;
+    private javax.swing.JLabel detailTarif;
+    private javax.swing.JLabel detailTarif1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -305,6 +375,7 @@ public class DetailLog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblDenda;
     private javax.swing.JLabel lblDurasi;
     private javax.swing.JLabel lblKode;

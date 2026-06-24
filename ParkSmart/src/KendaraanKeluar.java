@@ -9,7 +9,9 @@
  */
 import javax.swing.JOptionPane;
 public class KendaraanKeluar extends javax.swing.JPanel {
-
+    private long totalJamGlobal = 0;
+    private int tarifPerJamGlobal = 0;
+    private String jenisKendaraanGlobal = "";
     /**
      * Creates new form CetakKarcis
      */
@@ -67,6 +69,7 @@ public class KendaraanKeluar extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         txtTglKeluar = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
+        btnHitung = new javax.swing.JButton();
         cbPetugasKeluar = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         chkKarcisHilang = new javax.swing.JCheckBox();
@@ -196,6 +199,10 @@ public class KendaraanKeluar extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel12.setText("Nama Petugas Masuk");
 
+        btnHitung.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnHitung.setText("Hitung");
+        btnHitung.addActionListener(this::btnHitungActionPerformed);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -221,7 +228,7 @@ public class KendaraanKeluar extends javax.swing.JPanel {
                     .addComponent(txtTarif, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -243,7 +250,10 @@ public class KendaraanKeluar extends javax.swing.JPanel {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTotalBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14)))
-                    .addComponent(txtPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnHitung)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -288,7 +298,8 @@ public class KendaraanKeluar extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(txtPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHitung))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -346,7 +357,7 @@ public class KendaraanKeluar extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnKembali)
                     .addComponent(btnKeluar))
-                .addGap(0, 43, Short.MAX_VALUE))
+                .addGap(0, 42, Short.MAX_VALUE))
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 390));
@@ -407,11 +418,9 @@ public class KendaraanKeluar extends javax.swing.JPanel {
                 long totalJam = (long) Math.ceil(selisihMenit / 60.0);
                 if (totalJam <= 0) totalJam = 1; // Minimal bayar 1 jam
 
-                long totalBayar = totalJam * tarifPerJam;
-                if (chkKarcisHilang.isSelected()) {
-                    int nominalDenda = jenis.equalsIgnoreCase("Motor") ? 25000 : 50000;
-                    totalBayar += nominalDenda;
-                }
+                totalJamGlobal = totalJam;
+                tarifPerJamGlobal = tarifPerJam;
+                jenisKendaraanGlobal = jenis;
 
                 txtKode.setText(kode);
                 txtJenisKendaraan.setText(jenis);
@@ -427,8 +436,9 @@ public class KendaraanKeluar extends javax.swing.JPanel {
                 txtPlat.setText(platFormat);
                 txtTarif.setText("Rp. " + tarifPerJam);
                 txtJamKeluar.setText(jamKeluarStr);
-                txtTotalBayar.setText("Rp. " + totalBayar);
 
+                txtTarif.setText("Rp. " + tarifPerJam);
+                txtTotalBayar.setText("");
             } else {
                 JOptionPane.showMessageDialog(this, "Plat Nomor " + txtCariData.getText() + " tidak ditemukan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                 bersihkanForm();
@@ -604,6 +614,24 @@ public class KendaraanKeluar extends javax.swing.JPanel {
             btnCariPlatActionPerformed(null);
         }
     }//GEN-LAST:event_chkKarcisHilangActionPerformed
+
+    private void btnHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungActionPerformed
+        // TODO add your handling code here:
+        if (txtKode.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Silakan cari plat nomor kendaraan yang valid terlebih dahulu", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        long totalBayar = totalJamGlobal * tarifPerJamGlobal;
+        
+        if (chkKarcisHilang.isSelected()) {
+            int nominalDenda = jenisKendaraanGlobal.equalsIgnoreCase("Motor") ? 25000 : 50000;
+            totalBayar += nominalDenda;
+        }
+
+        txtTarif.setText("Rp. " + tarifPerJamGlobal);
+        txtTotalBayar.setText("Rp. " + totalBayar);
+    }//GEN-LAST:event_btnHitungActionPerformed
     private void bersihkanForm() {
         txtCariData.setText("");
         txtPetugas.setText("");
@@ -625,6 +653,7 @@ public class KendaraanKeluar extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCariPlat;
+    private javax.swing.JButton btnHitung;
     private javax.swing.JButton btnKeluar;
     private javax.swing.JButton btnKembali;
     private javax.swing.JComboBox<String> cbPetugasKeluar;

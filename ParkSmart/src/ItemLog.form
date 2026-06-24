@@ -63,9 +63,9 @@
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblStatus" min="-2" pref="130" max="-2" attributes="0"/>
-                      <Component id="lblWaktu" min="-2" pref="184" max="-2" attributes="0"/>
+                      <Component id="lblWaktu" min="-2" pref="247" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="299" max="32767" attributes="0"/>
+                  <EmptySpace pref="236" max="32767" attributes="0"/>
                   <Component id="lblKode" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               </Group>
