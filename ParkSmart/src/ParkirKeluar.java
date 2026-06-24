@@ -8,18 +8,18 @@
  * @author ROHMAN
  */
 import javax.swing.JOptionPane;
-public class KendaraanKeluar extends javax.swing.JPanel {
+public class ParkirKeluar extends javax.swing.JPanel {
     private long totalJamGlobal = 0;
     private int tarifPerJamGlobal = 0;
     private String jenisKendaraanGlobal = "";
     /**
      * Creates new form CetakKarcis
      */
-    public KendaraanKeluar() {
+    public ParkirKeluar() {
         initComponents();
     }
     
-    public KendaraanKeluar(String kodeOtomatis) {
+    public ParkirKeluar(String kodeOtomatis) {
         initComponents();
         txtCariData.setText(kodeOtomatis);
         btnCariPlatActionPerformed(null);

@@ -72,7 +72,7 @@ public class LogAktivitas extends javax.swing.JPanel {
 
                 // Tentukan status logo panah
                 String jenisAksi = "Keluar";
-                if (status.toLowerCase().contains("masuk")) {
+                if (status.toLowerCase().contains("masuk") || status.toLowerCase().contains("parkir masuk")) {
                     jenisAksi = "Masuk";
                 }
 

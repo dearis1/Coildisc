@@ -8,12 +8,12 @@
  * @author Dearis Mahendra
  */
 import javax.swing.JOptionPane;
-public class KendaraanMasuk extends javax.swing.JPanel {
+public class ParkirMasuk extends javax.swing.JPanel {
 
     /**
      * Creates new form halamanUtama
      */
-    public KendaraanMasuk(String namaPetugas) {
+    public ParkirMasuk(String namaPetugas) {
         initComponents();
         
         java.time.LocalDate date = java.time.LocalDate.now();
