@@ -184,7 +184,7 @@ public class ParkirMasuk extends javax.swing.JPanel {
         cbPetugas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Petugas", "Dearis", "Khabid", "Rohman" }));
         cbPetugas.addActionListener(this::cbPetugasActionPerformed);
 
-        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
 
         jLabel11.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(204, 255, 255));

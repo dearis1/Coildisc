@@ -112,7 +112,7 @@ public class LogAktivitas extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setPreferredSize(new java.awt.Dimension(950, 390));
 
-        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
         jPanel2.setPreferredSize(new java.awt.Dimension(537, 33));
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N

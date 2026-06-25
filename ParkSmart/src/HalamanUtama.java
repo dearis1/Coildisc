@@ -35,8 +35,9 @@ public class HalamanUtama extends javax.swing.JFrame {
         btnKeluar = new javax.swing.JButton();
         btnAktivitas = new javax.swing.JButton();
         btnKeuangan1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         pnlKonten = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -58,10 +59,9 @@ public class HalamanUtama extends javax.swing.JFrame {
 
         btnKeuangan.setBackground(new java.awt.Color(204, 204, 255));
         btnKeuangan.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnKeuangan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo Logout.png"))); // NOI18N
-        btnKeuangan.setText("Logout");
+        btnKeuangan.setText("Laporan");
         btnKeuangan.addActionListener(this::btnKeuanganActionPerformed);
-        getContentPane().add(btnKeuangan, new org.netbeans.lib.awtextra.AbsoluteConstraints(515, 18, -1, 40));
+        getContentPane().add(btnKeuangan, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 18, -1, 40));
 
         btnKeluar.setBackground(new java.awt.Color(204, 204, 255));
         btnKeluar.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
@@ -77,22 +77,29 @@ public class HalamanUtama extends javax.swing.JFrame {
 
         btnKeuangan1.setBackground(new java.awt.Color(204, 204, 255));
         btnKeuangan1.setFont(new java.awt.Font("Arial Narrow", 1, 14)); // NOI18N
-        btnKeuangan1.setText("Laporan");
+        btnKeuangan1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo Logout.png"))); // NOI18N
+        btnKeuangan1.setText("Logout");
         btnKeuangan1.addActionListener(this::btnKeuangan1ActionPerformed);
-        getContentPane().add(btnKeuangan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 18, -1, 40));
-
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/W Park_Smart.png"))); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, -50, 530, 190));
+        getContentPane().add(btnKeuangan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 18, -1, 40));
 
         pnlKonten.setBackground(new java.awt.Color(204, 204, 204));
         pnlKonten.setLayout(new java.awt.CardLayout());
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Coildisc (2).png"))); // NOI18N
-        pnlKonten.add(jLabel2, "card2");
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sdt.png"))); // NOI18N
+        pnlKonten.add(jLabel3, "card2");
 
         getContentPane().add(pnlKonten, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 950, 390));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tysm.png"))); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 510, 950, 90));
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("SimSun", 3, 48)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("PARK SMART");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 20, 300, 50));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Desain_tanpa_judul.jpg.jpeg"))); // NOI18N
@@ -202,6 +209,7 @@ public class HalamanUtama extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     public javax.swing.JPanel pnlKonten;
     // End of variables declaration//GEN-END:variables
 }
