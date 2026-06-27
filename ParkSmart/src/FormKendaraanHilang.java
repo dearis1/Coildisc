@@ -22,26 +22,23 @@ public class FormKendaraanHilang extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         txtCari.setText("Cari...");
-        txtCari.setForeground(new java.awt.Color(153, 153, 153)); // Warna abu-abu samar
+        txtCari.setForeground(new java.awt.Color(153, 153, 153));
 
         txtCari.addFocusListener(new java.awt.event.FocusListener() {
             @Override
             public void focusGained(java.awt.event.FocusEvent evt) {
-                // Pas diklik, kalau isinya masih tulisan "Cari...", langsung bersihkan lek murni!
                 if (txtCari.getText().equals("Cari...")) {
                     txtCari.setText("");
-                    txtCari.setForeground(java.awt.Color.BLACK); // Balikin jadi warna hitam tegas
+                    txtCari.setForeground(java.awt.Color.BLACK);
                 }
             }
 
             @Override
             public void focusLost(java.awt.event.FocusEvent evt) {
-                // Pas kasir gak klik kotak itu lagi dan isinya kosong, munculin lagi teks samarnya
                 if (txtCari.getText().trim().isEmpty()) {
                     txtCari.setText("Cari...");
                     txtCari.setForeground(new java.awt.Color(153, 153, 153));
                     
-                    // Bersihkan form textfield di layar murni lek
                     txtKode.setText("");
                     txtPlat.setText("");
                     cbJenis.setSelectedIndex(0);

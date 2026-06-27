@@ -152,7 +152,7 @@ public class CetakKarcis extends javax.swing.JPanel {
         String kodeCari = txtCariData.getText().trim().toUpperCase().replace(" ", "");
 
         if (kodeCari.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ketik Kode Karcis yang mau dicari!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Cari Kode Karcis yang ingin dicari!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
@@ -210,7 +210,6 @@ public class CetakKarcis extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Belum ada data karcis yang dicari!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
         try {
             java.text.MessageFormat header = new java.text.MessageFormat("Karcis ParkSmart Masuk");
             java.text.MessageFormat footer = new java.text.MessageFormat("Halaman {0}");

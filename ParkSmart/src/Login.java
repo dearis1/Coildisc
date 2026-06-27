@@ -148,7 +148,7 @@ public class Login extends javax.swing.JFrame {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                JOptionPane.showMessageDialog(this, "Login Berhasil! Selamat Bertugas.");
+                JOptionPane.showMessageDialog(this, "Login Berhasil!.");
                 
                 String namaLogin = rs.getString("username"); 
 

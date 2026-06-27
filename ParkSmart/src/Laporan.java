@@ -15,6 +15,8 @@ public class Laporan extends javax.swing.JPanel {
     public Laporan() {
         initComponents();
         dcTanggal.setDateFormatString("dd-MM-yyyy");
+        dcTanggal.setDate(new java.util.Date());
+        
         harian.setVisible(false);
         bulanan.setVisible(false);
         
@@ -38,6 +40,29 @@ public class Laporan extends javax.swing.JPanel {
             }
         });
         tampilkanDataLaporan();
+    }
+    
+    private String konversiTglIndo(String tglDb) {
+        if (tglDb == null || tglDb.isEmpty()) {
+            return "";
+        }
+        try {
+            java.util.Date dateObj = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(tglDb);
+            return new java.text.SimpleDateFormat("dd-MM-yyyy").format(dateObj);
+        } catch (Exception e) {
+            return tglDb;
+        }
+    }
+    
+    private String konversiPlatFormat(String platInput) {
+        if (platInput == null || platInput.isEmpty()) {
+            return "";
+        }
+        String platFormat = platInput.trim().toUpperCase().replace(" ", "");
+        if (platFormat.matches("^[A-Z]{1,2}\\d+[A-Z]{1,3}$")) {
+            platFormat = platFormat.replaceAll("^([A-Z]{1,2})(\\d+)([A-Z]{1,3})$", "$1 $2 $3");
+        }
+        return platFormat;
     }
     
     public void tampilkanDataLaporan() {
@@ -154,15 +179,14 @@ public class Laporan extends javax.swing.JPanel {
             }
             
         } else if (pilihan.contains("Pendapatan")) {
-            model.addColumn("Kode Karcis");
+            model.addColumn("Kode Tarif");
             model.addColumn("Tanggal Keluar");
             model.addColumn("Jam Keluar");
-            model.addColumn("Plat Nomor");
             model.addColumn("Tarif Dasar");
             model.addColumn("Denda Karcis");
             model.addColumn("Sub Total");
             
-            sql = "SELECT kode_tarif, tanggal_keluar, Jam_keluar, plat_nomor, total_tarif, denda, (total_tarif + denda) AS sub_total "
+            sql = "SELECT kode_tarif, tanggal_keluar, Jam_keluar, total_tarif, denda, (total_tarif + denda) AS sub_total "
                 + "FROM riwayat_parkir WHERE status = 'Keluar' AND tanggal_keluar = ?";
         }
 
@@ -178,22 +202,32 @@ public class Laporan extends javax.swing.JPanel {
             }
             
             java.sql.ResultSet rs = ps.executeQuery();            
-            while (rs.next()) {
+            while (rs.next()) {                
                 if (pilihan.contains("Masuk")) {
                     model.addRow(new Object[]{
-                        rs.getString("kode_tarif"), rs.getString("plat_nomor"),
-                        rs.getString("jenis_kendaraan"), rs.getString("tanggal_masuk"), rs.getString("jam_masuk")
+                        rs.getString("kode_tarif"), 
+                        konversiPlatFormat(rs.getString("plat_nomor")),
+                        rs.getString("jenis_kendaraan"),
+                        konversiTglIndo(rs.getString("tanggal_masuk")),
+                        rs.getString("jam_masuk")
                     });
                 } else if (pilihan.contains("Keluar")) {
                     model.addRow(new Object[]{
-                        rs.getString("kode_tarif"), rs.getString("plat_nomor"),
-                        rs.getString("jenis_kendaraan"), rs.getString("tanggal_keluar"), rs.getString("jam_keluar"),
+                        rs.getString("kode_tarif"),
+                        konversiPlatFormat(rs.getString("plat_nomor")),
+                        rs.getString("jenis_kendaraan"),
+                        konversiTglIndo(rs.getString("tanggal_keluar")),
+                        rs.getString("jam_keluar"),
                         rs.getString("durasi")
                     });
                 } else if (pilihan.contains("Karcis Hilang")) {
                     model.addRow(new Object[]{
-                        rs.getString("kode_tarif"), rs.getString("plat_nomor"),
-                        rs.getString("jenis_kendaraan"), rs.getString("tanggal_masuk"), rs.getString("tanggal_keluar"), "Rp " + rs.getInt("denda")
+                        rs.getString("kode_tarif"),
+                        konversiPlatFormat(rs.getString("plat_nomor")),
+                        rs.getString("jenis_kendaraan"),
+                        konversiTglIndo(rs.getString("tanggal_masuk")),
+                        konversiTglIndo(rs.getString("tanggal_keluar")),
+                        "Rp " + rs.getInt("denda")
                     });
                 } else if (pilihan.contains("Kendaraan Hilang")) {
                     model.addRow(new Object[]{
@@ -203,15 +237,18 @@ public class Laporan extends javax.swing.JPanel {
                         rs.getString("warna"),
                         rs.getString("merk"),
                         rs.getString("no_telp"),
-                        rs.getString("tanggal_lapor"),
+                        konversiTglIndo(rs.getString("tanggal_lapor")),
                         rs.getString("jam_lapor"),
                         rs.getString("status")
                     });
                 } else if (pilihan.contains("Pendapatan")) {
                     model.addRow(new Object[]{
-                        rs.getString("kode_tarif"), rs.getString("tanggal_keluar"),
-                        rs.getString("jam_keluar"), rs.getString("plat_nomor"),
-                        "Rp " + rs.getInt("total_tarif"), "Rp " + rs.getInt("denda"), "Rp " + rs.getInt("sub_total")
+                        rs.getString("kode_tarif"),
+                        konversiTglIndo(rs.getString("tanggal_keluar")),
+                        rs.getString("jam_keluar"),
+                        "Rp " + rs.getInt("total_tarif"),
+                        "Rp " + rs.getInt("denda"),
+                        "Rp " + rs.getInt("sub_total")
                     });
                 }
             }
@@ -506,8 +543,7 @@ public class Laporan extends javax.swing.JPanel {
             if (!keyword.isEmpty() && !keyword.equals("Cari...")) {
                 
                 javax.swing.JOptionPane.showMessageDialog(this, 
-                    "Silakan pilih Jenis Laporan terlebih dahulu sebelum melakukan pencarian kendaraan!", 
-                    "Peringatan", 
+                    "Silakan pilih Jenis Laporan terlebih dahulu sebelum melakukan pencarian kendaraan!", "Peringatan", 
                     javax.swing.JOptionPane.WARNING_MESSAGE);
                 
                 txtCari.setText("Cari...");
@@ -525,51 +561,121 @@ public class Laporan extends javax.swing.JPanel {
         String pilihan = cbJenisLaporan.getSelectedItem().toString();
         
         if (pilihan.contains("Pendapatan")) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Akses Ditolak! Data Pendapatan Keuangan bersifat mutlak dan tidak boleh di-edit petugas kasir!", "Keamanan Sistem", javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "Akses Ditolak! Data Pendapatan Keuangan bersifat mutlak dan tidak boleh diedit petugas kasir!", "Keamanan Sistem", javax.swing.JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         int barisTerpilih = tabelLaporan.getSelectedRow();
         if (barisTerpilih == -1) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Silakan pilih baris data di tabel terlebih dahulu lek!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "Silakan pilih baris data tabel terlebih dahulu!", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         Object primaryKey = tabelLaporan.getValueAt(barisTerpilih, 0); 
-        int kolomPlat = 1;
-        
-        String platLama = tabelLaporan.getValueAt(barisTerpilih, kolomPlat).toString();
-        String platBaru = javax.swing.JOptionPane.showInputDialog(this, "Masukkan Perbaikan Plat Nomor:", platLama);
-        
-        if (platBaru == null || platBaru.trim().isEmpty()) {
-            return;
-        }
         
         try {
             java.sql.Connection conn = Koneksi.getConnection();
             String sqlUpdate = "";
             java.sql.PreparedStatement psUpdate = null;
             
-            if (pilihan.contains("Masuk")) {
-                sqlUpdate = "UPDATE data_kendaraan SET plat_nomor = ? WHERE kode_tarif = ?";
+            if (pilihan.contains("Karcis Hilang")) {
+                String[] opsiKarcis = {"Edit Plat Nomor", "Edit Denda Karcis"};
+                String menuTerpilih = (String) javax.swing.JOptionPane.showInputDialog(this, 
+                        "Pilih data yang ingin diedit:", "Pilihan Edit Karcis Hilang", 
+                        javax.swing.JOptionPane.QUESTION_MESSAGE, null, opsiKarcis, opsiKarcis[0]);
+                
+                if (menuTerpilih == null) return;
+                
+                if (menuTerpilih.equals("Edit Plat Nomor")) {
+                    String platLama = tabelLaporan.getValueAt(barisTerpilih, 1).toString();
+                    String platBaru = javax.swing.JOptionPane.showInputDialog(this, "Masukkan Perbaikan Plat Nomor:", platLama);
+                    if (platBaru == null || platBaru.trim().isEmpty()) return;
+                    
+                    String platSimpan = platBaru.trim().toUpperCase().replace(" ", "");
+                    sqlUpdate = "UPDATE riwayat_parkir SET plat_nomor = ? WHERE kode_tarif = ?";
+                    psUpdate = conn.prepareStatement(sqlUpdate);
+                    psUpdate.setString(1, platSimpan);
+                    psUpdate.setString(2, primaryKey.toString());
+                    
+                } else if (menuTerpilih.equals("Edit Denda Karcis")) {
+                    String dendaLamaRaw = tabelLaporan.getValueAt(barisTerpilih, 5).toString().replace("Rp ", "").replace(".", "").trim();
+                    String dendaBaruStr = javax.swing.JOptionPane.showInputDialog(this, "Masukkan Perbaikan Denda Karcis :", dendaLamaRaw);
+                    
+                    if (dendaBaruStr == null || dendaBaruStr.trim().isEmpty()) return;
+                    
+                    int dendaBaru = Integer.parseInt(dendaBaruStr.trim());
+                    sqlUpdate = "UPDATE riwayat_parkir SET denda = ? WHERE kode_tarif = ?";
+                    psUpdate = conn.prepareStatement(sqlUpdate);
+                    psUpdate.setInt(1, dendaBaru);
+                    psUpdate.setString(2, primaryKey.toString());
+                }
+                
             } else if (pilihan.contains("Kendaraan Hilang")) {
-                sqlUpdate = "UPDATE kendaraan_hilang SET plat_nomor = ? WHERE kode_tarif = ?";
-            } else {
-                sqlUpdate = "UPDATE riwayat_parkir SET plat_nomor = ? WHERE kode_tarif = ?";
-            }
+                String[] opsiHilang = {"Edit Plat Nomor", "Edit Status Kendaraan"};
+                String menuTerpilih = (String) javax.swing.JOptionPane.showInputDialog(this, 
+                        "Pilih data yang ingin diedit:", "Pilihan Edit Kendaraan Hilang", 
+                        javax.swing.JOptionPane.QUESTION_MESSAGE, null, opsiHilang, opsiHilang[0]);
+                
+                if (menuTerpilih == null) return;
+                
+                if (menuTerpilih.equals("Edit Plat Nomor")) {
+                    String platLama = tabelLaporan.getValueAt(barisTerpilih, 1).toString();
+                    String platBaru = javax.swing.JOptionPane.showInputDialog(this, "Masukkan Perbaikan Plat Nomor:", platLama);
+                    if (platBaru == null || platBaru.trim().isEmpty()) return;
+                    
+                    String platSimpan = platBaru.trim().toUpperCase().replace(" ", "");
+                    sqlUpdate = "UPDATE kendaraan_hilang SET plat_nomor = ? WHERE kode_tarif = ?";
+                    psUpdate = conn.prepareStatement(sqlUpdate);
+                    psUpdate.setString(1, platSimpan);
+                    psUpdate.setString(2, primaryKey.toString());
+                    
+                } else if (menuTerpilih.equals("Edit Status Kendaraan")) {
+                    String statusLama = tabelLaporan.getValueAt(barisTerpilih, 8).toString();
+                    String[] opsiStatus = {"Hilang", "Ditemukan", "Selesai"};
+                    String statusBaru = (String) javax.swing.JOptionPane.showInputDialog(this, 
+                            "Pilih Status Kendaraan Hilang yang Baru:", "Update Status", 
+                            javax.swing.JOptionPane.QUESTION_MESSAGE, null, opsiStatus, statusLama);
+                    if (statusBaru == null) return;
+                    
+                    sqlUpdate = "UPDATE kendaraan_hilang SET status = ? WHERE kode_tarif = ?";
+                    psUpdate = conn.prepareStatement(sqlUpdate);
+                    psUpdate.setString(1, statusBaru);
+                    psUpdate.setString(2, primaryKey.toString());
+                }
 
-            psUpdate = conn.prepareStatement(sqlUpdate);
-            psUpdate.setString(1, platBaru.toUpperCase());
-            psUpdate.setString(2, primaryKey.toString());
-            
+            } else {
+                int kolomPlat = 1;
+                String platLama = tabelLaporan.getValueAt(barisTerpilih, kolomPlat).toString();
+                String platBaru = javax.swing.JOptionPane.showInputDialog(this, "Masukkan Perbaikan Plat Nomor:", platLama);
+                
+                if (platBaru == null || platBaru.trim().isEmpty()) return;
+                
+                String platSimpan = platBaru.trim().toUpperCase().replace(" ", "");
+                
+                if (pilihan.contains("Masuk")) {
+                    sqlUpdate = "UPDATE data_kendaraan SET plat_nomor = ? WHERE kode_tarif = ?";
+                } else {
+                    sqlUpdate = "UPDATE riwayat_parkir SET plat_nomor = ? WHERE kode_tarif = ?";
+                }
+                
+                psUpdate = conn.prepareStatement(sqlUpdate);
+                psUpdate.setString(1, platSimpan);
+                psUpdate.setString(2, primaryKey.toString());
+            }
+            // Update ke database
             if (psUpdate != null) {
                 int hasil = psUpdate.executeUpdate();
                 if (hasil > 0) {
-                    javax.swing.JOptionPane.showMessageDialog(this, "Data plat nomor berhasil diperbarui", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                    javax.swing.JOptionPane.showMessageDialog(this, "Data laporan berhasil diperbarui!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     tampilkanDataLaporan(); 
+                    
+                    scrollLaporan.setVisible(true);   
+                    tampilkanDataLaporan();
                 }
                 psUpdate.close();
             }
+        } catch (NumberFormatException nfe) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Input denda harus berupa angka!", "Format Salah", javax.swing.JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Gagal mengedit data: " + e.getMessage(), "Eror", javax.swing.JOptionPane.ERROR_MESSAGE);
         }

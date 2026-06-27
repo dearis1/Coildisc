@@ -12,6 +12,7 @@ public class ParkirKeluar extends javax.swing.JPanel {
     private long totalJamGlobal = 0;
     private int tarifPerJamGlobal = 0;
     private String jenisKendaraanGlobal = "";
+    private String tglKeluarDb = "";
     /**
      * Creates new form CetakKarcis
      */
@@ -377,6 +378,7 @@ public class ParkirKeluar extends javax.swing.JPanel {
                 String platInput = rs.getString("plat_nomor");
                 String platFormat = platInput;
                 
+                // Plat format
                 if (platInput != null) {
                     platInput = platInput.trim().toUpperCase().replace(" ", "");
                     
@@ -392,16 +394,19 @@ public class ParkirKeluar extends javax.swing.JPanel {
                 int tarifPerJam = rs.getInt("tarif");
                 String petugas = rs.getString("petugas_jaga");
 
-                // Logika Hitung Waktu Parkir Realtime
+                // Hitung Waktu Parkir
                 java.time.LocalDate tglMasuk = java.time.LocalDate.parse(tglMasukStr);
                 java.time.LocalTime jamMasuk = java.time.LocalTime.parse(jamMasukStr);
                 java.time.LocalDateTime waktuAwal = java.time.LocalDateTime.of(tglMasuk, jamMasuk);
                 
-                // WAKTU SISTEM REALTIME HARI INI
+                // Sistem Waktu hari ini
                 java.time.LocalDateTime waktuAkhir = java.time.LocalDateTime.now();
                 String jamKeluarStr = waktuAkhir.toLocalTime().format(java.time.format.DateTimeFormatter.ofPattern("HH:mm:ss"));
-                String tglKeluarStr = waktuAkhir.toLocalDate().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
+                
+                tglKeluarDb = waktuAkhir.toLocalDate().toString();
+                String tglKeluarIndo = waktuAkhir.toLocalDate().format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                String tglMasukIndo = tglMasuk.format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                
                 // Hitung durasi jam
                 long selisihMenit = java.time.temporal.ChronoUnit.MINUTES.between(waktuAwal, waktuAkhir);
                 long totalJam = (long) Math.ceil(selisihMenit / 60.0);
@@ -413,8 +418,8 @@ public class ParkirKeluar extends javax.swing.JPanel {
 
                 txtKode.setText(kode);
                 txtJenisKendaraan.setText(jenis);
-                txtTglMasuk.setText(tglMasukStr);
-                txtTglKeluar.setText(tglKeluarStr);
+                txtTglMasuk.setText(tglMasukIndo);
+                txtTglKeluar.setText(tglKeluarIndo);
                 txtPetugas.setText(petugas);
 
                 txtWarna.setText(warna);
@@ -431,9 +436,8 @@ public class ParkirKeluar extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Plat Nomor " + txtCariData.getText() + " tidak ditemukan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                 bersihkanForm();
             }
-
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal koneksi database lek: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Gagal koneksi database: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCariPlatActionPerformed
 
@@ -446,7 +450,7 @@ public class ParkirKeluar extends javax.swing.JPanel {
 
         String petugasKeluar = cbPetugasKeluar.getSelectedItem().toString();
         if (petugasKeluar.equals("Pilih Petugas")) {
-            JOptionPane.showMessageDialog(this, "Silakan pilih nama Petugas Kelur!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Silakan pilih nama Petugas Keluar!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -455,15 +459,15 @@ public class ParkirKeluar extends javax.swing.JPanel {
         
         String jamKeluarStr = txtJamKeluar.getText();
         java.time.LocalDate tanggalHariIni = java.time.LocalDate.now();
-        String tglKeluarStr = tanggalHariIni.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String tglKeluarStr = tanggalHariIni.format(java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         
         String pesanSukses = "Pembayaran Sukses!\n\n"
-                           + "Detail Konfirmasi:\n"
-                           + "- Disahkan Masuk Oleh : " + petugasMasuk + "\n"
-                           + "- Disahkan Keluar Oleh : " + petugasKeluar + "\n\n"
+                           + "Detail Konfirmas:\n"
+                           + "- Petugas Masuk : " + petugasMasuk + "\n"
+                           + "- Petugas Keluar : " + petugasKeluar + "\n\n"
                            + "- Tanggal Keluar : " + tglKeluarStr + "\n"
                            + "- Jam Keluar : " + jamKeluarStr + "\n\n"
-                           + "Data log lengkap berhasil disimpan & kendaraan diizinkan keluar!";;
+                           + "Data lengkap & kendaraan diizinkan keluar!";;
 
         String sqlDelete = "DELETE FROM data_kendaraan WHERE REPLACE(plat_nomor, ' ', '') = ?";
 
@@ -481,7 +485,7 @@ public class ParkirKeluar extends javax.swing.JPanel {
                 String jenis = rs.getString("jenis_kendaraan");
                 String warna = rs.getString("warna_kendaraan");
                 String tglMasuk = rs.getString("tanggal_masuk");
-                String jmMasuk = rs.getString("jam_masuk");
+                String jamMasuk = rs.getString("jam_masuk");
                 int tarifDasar = rs.getInt("tarif");
                 String petMasuk = rs.getString("petugas_jaga");
                 
@@ -503,8 +507,8 @@ public class ParkirKeluar extends javax.swing.JPanel {
                 psArsip.setString(3, jenis);
                 psArsip.setString(4, warna);
                 psArsip.setString(5, tglMasuk);
-                psArsip.setString(6, jmMasuk);
-                psArsip.setString(7, tglKeluarStr);
+                psArsip.setString(6, jamMasuk);
+                psArsip.setString(7, tglKeluarDb);
                 psArsip.setString(8, jamKeluarStr);
                 psArsip.setInt(9, tarifDasar);
                 psArsip.setString(10, petMasuk);
@@ -524,7 +528,7 @@ public class ParkirKeluar extends javax.swing.JPanel {
             if (suksesHapus > 0) {
                 String sqlLogManual = "INSERT INTO log_aktivitas (tanggal, jam, petugas, status, kode_tarif) VALUES (?, ?, ?, ?, ?)";
                 try (java.sql.PreparedStatement psLog = conn.prepareStatement(sqlLogManual)) {
-                    psLog.setString(1, tglKeluarStr);
+                    psLog.setString(1, tglKeluarDb);
                     psLog.setString(2, jamKeluarStr);
                     psLog.setString(3, petugasKeluar);
                     psLog.setString(4, "Kendaraan Keluar");
@@ -613,7 +617,7 @@ public class ParkirKeluar extends javax.swing.JPanel {
     private void btnHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungActionPerformed
         // TODO add your handling code here:
         if (txtKode.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Silakan cari plat nomor kendaraan yang valid terlebih dahulu", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Silakan cari plat nomor kendaraan yang valid!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return;
         }
 

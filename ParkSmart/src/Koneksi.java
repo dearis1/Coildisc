@@ -18,11 +18,13 @@ public class Koneksi {
     public static Connection getConnection() {
         if (mysqlkonek == null) {
             try {
+                // Konfigurasi alamat database, username, dan password MySQL
                 String url = "jdbc:mysql://localhost:3306/db_parksmart";
-                String user = "root";
-                String pass = "";
+                String user = "root"; // Default username
+                String pass = ""; // Default password
                 
                 DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+                
                 mysqlkonek = DriverManager.getConnection(url, user, pass);
                 
                 System.out.println("Koneksi Database Berhasil, Lek!");
@@ -44,7 +46,7 @@ public class Koneksi {
             ps.setString(2, status);
             ps.setString(3, kodeTarif);
             
-            ps.executeUpdate(); // Eksekusi tembak ke tabel log_aktivitas lek!
+            ps.executeUpdate();
             System.out.println("Log aktivitas berhasil dicatat!");
         } catch (SQLException e) {
             System.out.println("Gagal mencatat log ke MySQL! Errornya: " + e.getMessage());

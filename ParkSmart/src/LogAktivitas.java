@@ -24,7 +24,7 @@ public class LogAktivitas extends javax.swing.JPanel {
     public void loadAktivitasDinamis(String kataKunci) {
         pnlScroll.removeAll();
 
-        // Query ambil data + format bulan 3 huruf (cth: Jun, Mei, Apr)
+        // Query ambil data & format bulan 3 huruf cth: Jun, Mei, Apr
         String sql = "SELECT DATE_FORMAT(tanggal, '%d %b %Y') AS tgl_format, "
                    + "DATE_FORMAT(tanggal, '%M %Y') AS bulan_tahun, "
                    + "jam, petugas, status, kode_tarif FROM log_aktivitas ";
@@ -43,8 +43,7 @@ public class LogAktivitas extends javax.swing.JPanel {
                 ps.setString(3, "%" + kataKunci + "%");
             }
             ResultSet rs = ps.executeQuery();
-
-            String bulanSebelumnya = ""; // Penanda ganti bulan
+            String bulanSebelumnya = "";
 
             while (rs.next()) {
                 String bulanSekarang = rs.getString("bulan_tahun"); 
@@ -67,10 +66,9 @@ public class LogAktivitas extends javax.swing.JPanel {
                     HeaderBulan pnlBulan = new HeaderBulan(bulanIndo);
                     pnlScroll.add(pnlBulan);
                     
-                    bulanSebelumnya = bulanSekarang; // Kunci bulan
+                    bulanSebelumnya = bulanSekarang;
                 }
-
-                // Tentukan status logo panah
+                
                 String jenisAksi = "Keluar";
                 if (status.toLowerCase().contains("masuk") || status.toLowerCase().contains("parkir masuk")) {
                     jenisAksi = "Masuk";

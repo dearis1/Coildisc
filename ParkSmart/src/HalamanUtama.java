@@ -172,6 +172,26 @@ public class HalamanUtama extends javax.swing.JFrame {
 
     private void btnKeuangan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeuangan1ActionPerformed
         // TODO add your handling code here:
+        int konfirmasi = javax.swing.JOptionPane.showConfirmDialog(this, 
+            "Apakah Anda yakin ingin keluar?", 
+            "Konfirmasi Logout", 
+            javax.swing.JOptionPane.YES_NO_OPTION, 
+            javax.swing.JOptionPane.QUESTION_MESSAGE);
+    
+    if (konfirmasi == javax.swing.JOptionPane.YES_OPTION) {
+        try {
+            Login halamanLogin = new Login(); 
+            halamanLogin.setVisible(true);
+            
+            this.dispose();
+            
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                    "Gagal melakukan logout: " + e.getMessage(), 
+                    "Eror", 
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }
     }//GEN-LAST:event_btnKeuangan1ActionPerformed
 
     /**

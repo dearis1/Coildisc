@@ -17,7 +17,7 @@ public class ParkirMasuk extends javax.swing.JPanel {
         initComponents();
         
         java.time.LocalDate date = java.time.LocalDate.now();
-        java.time.format.DateTimeFormatter formatTanggal = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        java.time.format.DateTimeFormatter formatTanggal = java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy");
         txtTgl.setText(date.format(formatTanggal));
         txtTgl.setEditable(false); 
 
@@ -215,9 +215,9 @@ public class ParkirMasuk extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(101, 101, 101)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,9 +248,7 @@ public class ParkirMasuk extends javax.swing.JPanel {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtTarif, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(btnHapus)))
+                    .addComponent(btnHapus))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnTambah)
@@ -267,11 +265,12 @@ public class ParkirMasuk extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTgl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtPlat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPlat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTgl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -392,7 +391,7 @@ public class ParkirMasuk extends javax.swing.JPanel {
                 }
                 
                 Koneksi.catatAktivitas(pilihPetugas, "Kendaraan Masuk", kodeTarif);
-                JOptionPane.showMessageDialog(this, "Kendaraan " + platNomor + " berhasil masuk! Kode Tiket: " + kodeTarif, "Sukses", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Kendaraan dengan plat " + platNomor + " berhasil masuk! Kode Tiket: " + kodeTarif, "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
                 txtPlat.setText("");
                 txtWarna.setText("");
@@ -470,9 +469,6 @@ public class ParkirMasuk extends javax.swing.JPanel {
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
         model.setRowCount(0); 
         
-        javax.swing.table.DefaultTableCellRenderer headerTengah = (javax.swing.table.DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer();
-        headerTengah.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
         javax.swing.table.DefaultTableCellRenderer tengah = new javax.swing.table.DefaultTableCellRenderer();
         tengah.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         
@@ -499,12 +495,23 @@ public class ParkirMasuk extends javax.swing.JPanel {
                     }
                 }
                 
+                String tglMasukDB = rs.getString("tanggal_masuk");
+                String tglMasukIndo = tglMasukDB;
+                
+                if (tglMasukDB != null && !tglMasukDB.isEmpty()) {
+                    try {
+                        java.util.Date dateObj = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(tglMasukDB);
+                        tglMasukIndo = new java.text.SimpleDateFormat("dd-MM-yyyy").format(dateObj);
+                    } catch (Exception e) {
+                        tglMasukIndo = tglMasukDB;
+                    }
+                }
                 Object[] row = {
                     rs.getString("kode_tarif"),
                     platFormat,
                     rs.getString("jenis_kendaraan"),
                     rs.getString("warna_kendaraan"),
-                    rs.getString("tanggal_masuk"),
+                    tglMasukIndo,
                     rs.getString("jam_masuk"),
                     rs.getInt("tarif"),
                     rs.getString("petugas_jaga")
