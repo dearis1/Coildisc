@@ -44,14 +44,12 @@ public class ParkirKeluar extends javax.swing.JPanel {
         btnKembali = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtKode = new javax.swing.JTextField();
         txtPlat = new javax.swing.JTextField();
         txtJenisKendaraan = new javax.swing.JTextField();
-        txtTlp = new javax.swing.JTextField();
         txtWarna = new javax.swing.JTextField();
         txtTarif = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -128,9 +126,6 @@ public class ParkirKeluar extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Kode Tarif");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("No Telp");
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Plat Nomer");
 
@@ -148,9 +143,6 @@ public class ParkirKeluar extends javax.swing.JPanel {
 
         txtJenisKendaraan.setEditable(false);
         txtJenisKendaraan.addActionListener(this::txtJenisKendaraanActionPerformed);
-
-        txtTlp.setEditable(false);
-        txtTlp.addActionListener(this::txtTlpActionPerformed);
 
         txtWarna.setEditable(false);
         txtWarna.addActionListener(this::txtWarnaActionPerformed);
@@ -208,16 +200,19 @@ public class ParkirKeluar extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(196, 196, 196)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(txtTlp, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(txtKode, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(txtPlat, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel5))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(196, 196, 196)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(txtKode, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel12))
+                            .addComponent(txtPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtPlat, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
@@ -225,10 +220,9 @@ public class ParkirKeluar extends javax.swing.JPanel {
                     .addComponent(txtJenisKendaraan, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtWarna, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(txtTarif, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
+                    .addComponent(txtTarif, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -250,10 +244,7 @@ public class ParkirKeluar extends javax.swing.JPanel {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTotalBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(txtPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnHitung)))
+                    .addComponent(btnHitung, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -273,33 +264,30 @@ public class ParkirKeluar extends javax.swing.JPanel {
                     .addComponent(txtTglKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
                     .addComponent(jLabel7)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel13))
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTlp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtWarna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtJamMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTotalJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotalJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPlat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
                     .addComponent(jLabel8)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel14))
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPlat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTarif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtJamKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTotalBayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(txtPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHitung))
+                    .addComponent(txtTotalBayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnHitung)
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -357,7 +345,7 @@ public class ParkirKeluar extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnKembali)
                     .addComponent(btnKeluar))
-                .addGap(0, 42, Short.MAX_VALUE))
+                .addGap(0, 48, Short.MAX_VALUE))
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 390));
@@ -386,20 +374,21 @@ public class ParkirKeluar extends javax.swing.JPanel {
 
             if (rs.next()) {
                 String kode = rs.getString("kode_tarif");
-                String platAsli = rs.getString("plat_nomor");
-                String platFormat = platAsli;
-                if (platAsli != null) {
-                    platAsli = platAsli.trim().toUpperCase().replace(" ", "");
-                    if (platAsli.matches("^[A-Z]{1,2}\\d{1,4}[A-Z]{1,3}$")) {
-                        platFormat = platAsli.replaceAll("^([A-Z]{1,2})(\\d{1,4})([A-Z]{1,3})$", "$1 $2 $3");
+                String platInput = rs.getString("plat_nomor");
+                String platFormat = platInput;
+                
+                if (platInput != null) {
+                    platInput = platInput.trim().toUpperCase().replace(" ", "");
+                    
+                    if (platInput.matches("^[A-Z]{1,2}\\d+[A-Z]{1,3}$")) {
+                        platFormat = platInput.replaceAll("^([A-Z]{1,2})(\\d+)([A-Z]{1,3})$", "$1 $2 $3");
                     }
                 }
                 
                 String jenis = rs.getString("jenis_kendaraan");
                 String warna = rs.getString("warna_kendaraan");
-                String telp = rs.getString("no_telp");
                 String tglMasukStr = rs.getString("tanggal_masuk");
-                String jamMasukStr = rs.getString("waktu_masuk");
+                String jamMasukStr = rs.getString("jam_masuk");
                 int tarifPerJam = rs.getInt("tarif");
                 String petugas = rs.getString("petugas_jaga");
 
@@ -428,7 +417,6 @@ public class ParkirKeluar extends javax.swing.JPanel {
                 txtTglKeluar.setText(tglKeluarStr);
                 txtPetugas.setText(petugas);
 
-                txtTlp.setText(telp);
                 txtWarna.setText(warna);
                 txtJamMasuk.setText(jamMasukStr);
                 txtTotalJam.setText(totalJam + " Jam");
@@ -474,7 +462,7 @@ public class ParkirKeluar extends javax.swing.JPanel {
                            + "- Disahkan Masuk Oleh : " + petugasMasuk + "\n"
                            + "- Disahkan Keluar Oleh : " + petugasKeluar + "\n\n"
                            + "- Tanggal Keluar : " + tglKeluarStr + "\n"
-                           + "- Waktu Keluar : " + jamKeluarStr + "\n\n"
+                           + "- Jam Keluar : " + jamKeluarStr + "\n\n"
                            + "Data log lengkap berhasil disimpan & kendaraan diizinkan keluar!";;
 
         String sqlDelete = "DELETE FROM data_kendaraan WHERE REPLACE(plat_nomor, ' ', '') = ?";
@@ -489,13 +477,12 @@ public class ParkirKeluar extends javax.swing.JPanel {
             
             if (rs.next()) {
                 String kode = rs.getString("kode_tarif");
-                String telp = rs.getString("no_telp");
-                String platAsli = rs.getString("plat_nomor");
+                String plat = rs.getString("plat_nomor");
                 String jenis = rs.getString("jenis_kendaraan");
                 String warna = rs.getString("warna_kendaraan");
                 String tglMasuk = rs.getString("tanggal_masuk");
-                String jmMasuk = rs.getString("waktu_masuk");
-                int tarifAwal = rs.getInt("tarif");
+                String jmMasuk = rs.getString("jam_masuk");
+                int tarifDasar = rs.getInt("tarif");
                 String petMasuk = rs.getString("petugas_jaga");
                 
                 int totBayar = Integer.parseInt(txtTotalBayar.getText().replace("Rp. ", "").trim());
@@ -506,28 +493,28 @@ public class ParkirKeluar extends javax.swing.JPanel {
                     nilaiDenda = jenis.equalsIgnoreCase("Motor") ? 25000 : 50000;
                 }
 
-                String sqlInsertRiwayat = "INSERT INTO riwayat_parkir (kode_tarif, no_telp, plat_nomor, jenis_kendaraan, warna_kendaraan, "
-                        + "tanggal_masuk, waktu_masuk, tanggal_keluar, waktu_keluar, tarif, petugas_jaga, petugas_keluar, durasi, total_tarif, denda, status) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                String sqlInsertRiwayat = "INSERT INTO riwayat_parkir (kode_tarif, plat_nomor, jenis_kendaraan, warna_kendaraan, "
+                        + "tanggal_masuk, jam_masuk, tanggal_keluar, jam_keluar, tarif, petugas_jaga, petugas_keluar, durasi, total_tarif, denda, status) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 
                 java.sql.PreparedStatement psArsip = conn.prepareStatement(sqlInsertRiwayat);
                 psArsip.setString(1, kode);
-                psArsip.setString(2, telp);
-                psArsip.setString(3, platAsli);
-                psArsip.setString(4, jenis);
-                psArsip.setString(5, warna);
-                psArsip.setString(6, tglMasuk);
-                psArsip.setString(7, jmMasuk);
-                psArsip.setString(8, tglKeluarStr);
-                psArsip.setString(9, jamKeluarStr);
-                psArsip.setInt(10, totBayar);
-                psArsip.setString(11, petMasuk);
-                psArsip.setString(12, petugasKeluar);
-                psArsip.setString(13, durasiParkir);
-                psArsip.setInt(14, totBayar);
-                psArsip.setInt(15, nilaiDenda);
-                psArsip.setString(16, "Keluar");
+                psArsip.setString(2, plat);
+                psArsip.setString(3, jenis);
+                psArsip.setString(4, warna);
+                psArsip.setString(5, tglMasuk);
+                psArsip.setString(6, jmMasuk);
+                psArsip.setString(7, tglKeluarStr);
+                psArsip.setString(8, jamKeluarStr);
+                psArsip.setInt(9, tarifDasar);
+                psArsip.setString(10, petMasuk);
+                psArsip.setString(11, petugasKeluar);
+                psArsip.setString(12, durasiParkir);
+                psArsip.setInt(13, totBayar);
+                psArsip.setInt(14, nilaiDenda);
+                psArsip.setString(15, "Keluar");
                 psArsip.executeUpdate();
+                psArsip.close();
             }
             
             java.sql.PreparedStatement ps = conn.prepareStatement(sqlDelete);
@@ -535,6 +522,18 @@ public class ParkirKeluar extends javax.swing.JPanel {
             int suksesHapus = ps.executeUpdate();
 
             if (suksesHapus > 0) {
+                String sqlLogManual = "INSERT INTO log_aktivitas (tanggal, jam, petugas, status, kode_tarif) VALUES (?, ?, ?, ?, ?)";
+                try (java.sql.PreparedStatement psLog = conn.prepareStatement(sqlLogManual)) {
+                    psLog.setString(1, tglKeluarStr);
+                    psLog.setString(2, jamKeluarStr);
+                    psLog.setString(3, petugasKeluar);
+                    psLog.setString(4, "Kendaraan Keluar");
+                    psLog.setString(5, txtKode.getText());
+                    psLog.executeUpdate();
+                } catch (Exception exLog) {
+                    System.out.println("Gagal kueri log_aktivitas keluar: " + exLog.getMessage());
+                }
+                
                 Koneksi.catatAktivitas(petugasKeluar, "Kendaraan Keluar", txtKode.getText());
                 JOptionPane.showMessageDialog(this, pesanSukses, "Sukses", JOptionPane.INFORMATION_MESSAGE);
                 bersihkanForm();
@@ -579,10 +578,6 @@ public class ParkirKeluar extends javax.swing.JPanel {
     private void txtJenisKendaraanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJenisKendaraanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtJenisKendaraanActionPerformed
-
-    private void txtTlpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTlpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTlpActionPerformed
 
     private void txtJamMasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJamMasukActionPerformed
         // TODO add your handling code here:
@@ -642,7 +637,6 @@ public class ParkirKeluar extends javax.swing.JPanel {
         txtJamMasuk.setText("");
         txtJamKeluar.setText("");
         txtTglKeluar.setText("");
-        txtTlp.setText("");
         txtTotalJam.setText("");
         txtPlat.setText("");
         txtTarif.setText("");
@@ -668,7 +662,6 @@ public class ParkirKeluar extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -687,7 +680,6 @@ public class ParkirKeluar extends javax.swing.JPanel {
     private javax.swing.JTextField txtTarif;
     private javax.swing.JTextField txtTglKeluar;
     private javax.swing.JTextField txtTglMasuk;
-    private javax.swing.JTextField txtTlp;
     private javax.swing.JTextField txtTotalBayar;
     private javax.swing.JTextField txtTotalJam;
     private javax.swing.JTextField txtWarna;

@@ -34,7 +34,7 @@ public class DetailLogMasuk extends javax.swing.JDialog {
         
         if (rs.next()) {
             String tglMasukDb = rs.getString("tanggal_masuk");
-            String waktuMasukStr = rs.getString("waktu_masuk");
+            String waktuMasukStr = rs.getString("jam_masuk");
                 try {
                     java.util.Date dateMasuk = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(tglMasukDb);
                     String tglMasukFix = new java.text.SimpleDateFormat("dd MMM yyyy").format(dateMasuk);
@@ -43,11 +43,18 @@ public class DetailLogMasuk extends javax.swing.JDialog {
                     lblWaktuMasuk.setText(tglMasukDb + " - " + waktuMasukStr + " | Oleh " + rs.getString("petugas_jaga"));
                 }
             
-            lblKode.setText(kodeTarifTerima);
+                lblKode.setText(kodeTarifTerima);
             
-            String platDb = rs.getString("plat_nomor");
-            String platFix = platDb.replaceAll("^([A-Z]{1,2})(\\d+)([A-Z]{1,3})$", "$1 $2 $3");
-            lblPlat.setText(platFix + " - " + rs.getString("jenis_kendaraan"));
+                String platInput = rs.getString("plat_nomor");
+                String platFormat = platInput;
+                if (platInput != null) {
+                    platInput = platInput.trim().toUpperCase().replace(" ", "");
+                    
+                    if (platInput.matches("^[A-Z]{1,2}\\d+[A-Z]{1,3}$")) {
+                        platFormat = platInput.replaceAll("^([A-Z]{1,2})(\\d+)([A-Z]{1,3})$", "$1 $2 $3");
+                    }
+                }
+                lblPlat.setText(platFormat + " - " + rs.getString("jenis_kendaraan"));
             
             lblJenisKen.setText(rs.getString("jenis_kendaraan"));
             lblWarna.setText(rs.getString("warna_kendaraan"));
@@ -58,7 +65,7 @@ public class DetailLogMasuk extends javax.swing.JDialog {
         rs.close();
         ps.close();
     } catch (Exception e) {
-        System.out.println("Gagal load data detail masuk lek: " + e.getMessage());
+        System.out.println("Gagal load data detail masuk: " + e.getMessage());
     }
 }
 

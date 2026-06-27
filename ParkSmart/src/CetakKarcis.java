@@ -172,7 +172,7 @@ public class CetakKarcis extends javax.swing.JPanel {
                 String kode = rs.getString("kode_tarif");
                 String jenis = rs.getString("jenis_kendaraan");
                 String tgl = rs.getString("tanggal_masuk");
-                String jam = rs.getString("waktu_masuk");
+                String jam = rs.getString("jam_masuk");
                 int tarif = rs.getInt("tarif");
 
                 StringBuilder sb = new StringBuilder();
@@ -195,12 +195,12 @@ public class CetakKarcis extends javax.swing.JPanel {
                 txtStruk.setText(sb.toString());
 
             } else {
-                JOptionPane.showMessageDialog(this, "Kode Karcis " + kodeCari + " tidak ditemukan lek!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Kode Karcis " + kodeCari + " tidak ditemukan!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
                 txtStruk.setText("");
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Gagal cari data lek: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Gagal cari data: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCariKodeActionPerformed
 
@@ -222,7 +222,7 @@ public class CetakKarcis extends javax.swing.JPanel {
             }
 
         } catch (java.awt.print.PrinterException e) {
-            JOptionPane.showMessageDialog(this, "Gagal memproses cetak PDF lek: " + e.getMessage(), "Printer Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Gagal memproses cetak PDF: " + e.getMessage(), "Printer Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCetakActionPerformed
 

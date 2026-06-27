@@ -27,12 +27,12 @@ public class LogAktivitas extends javax.swing.JPanel {
         // Query ambil data + format bulan 3 huruf (cth: Jun, Mei, Apr)
         String sql = "SELECT DATE_FORMAT(tanggal, '%d %b %Y') AS tgl_format, "
                    + "DATE_FORMAT(tanggal, '%M %Y') AS bulan_tahun, "
-                   + "waktu, petugas, status, kode_tarif FROM log_aktivitas ";
+                   + "jam, petugas, status, kode_tarif FROM log_aktivitas ";
         
         if (!kataKunci.isEmpty()) {
             sql += "WHERE status LIKE ? OR petugas LIKE ? OR kode_tarif LIKE ? ";
         }
-        sql += "ORDER BY tanggal DESC, waktu DESC"; // Urutkan paling baru lek!
+        sql += "ORDER BY tanggal DESC, jam DESC";
 
         try {
             Connection conn = Koneksi.getConnection();
@@ -50,7 +50,7 @@ public class LogAktivitas extends javax.swing.JPanel {
                 String bulanSekarang = rs.getString("bulan_tahun"); 
                 String status = rs.getString("status");
                 String tglFormat = rs.getString("tgl_format");
-                String waktu = rs.getString("waktu").substring(0, 5);
+                String waktu = rs.getString("jam").substring(0, 5);
                 String petugas = rs.getString("petugas");
                 String kodeTarif = rs.getString("kode_tarif");
                 

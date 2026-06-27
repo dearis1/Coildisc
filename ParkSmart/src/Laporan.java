@@ -25,8 +25,16 @@ public class Laporan extends javax.swing.JPanel {
         dateEditor.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                // Begitu dilepas tombol keyboardnya (backspace/delete), langsung panggil refresh tabel!
-                tampilkanDataLaporan();
+                if (dateEditor.getText().trim().isEmpty()) {
+                    dcTanggal.setDate(null);
+
+                    javax.swing.table.DefaultTableModel modelKosong = (javax.swing.table.DefaultTableModel) tabelLaporan.getModel();
+                    modelKosong.setRowCount(0);
+
+                    scrollLaporan.setVisible(false);
+                } else {
+                    tampilkanDataLaporan();
+                }
             }
         });
         tampilkanDataLaporan();
@@ -84,13 +92,13 @@ public class Laporan extends javax.swing.JPanel {
             model.addColumn("Plat Nomor");
             model.addColumn("Jenis Kendaraan");
             model.addColumn("Tanggal Masuk");
-            model.addColumn("Waktu Masuk");
+            model.addColumn("Jam Masuk");
             
             if (cari) {
-                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, tanggal_masuk, waktu_masuk FROM data_kendaraan "
+                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, tanggal_masuk, jam_masuk FROM data_kendaraan "
                     + "WHERE kode_tarif LIKE ? OR plat_nomor LIKE ?";
             } else {
-                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, tanggal_masuk, waktu_masuk FROM data_kendaraan "
+                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, tanggal_masuk, jam_masuk FROM data_kendaraan "
                     + "WHERE tanggal_masuk = ?";
             }
             
@@ -99,15 +107,14 @@ public class Laporan extends javax.swing.JPanel {
             model.addColumn("Plat Nomor");
             model.addColumn("Jenis Kendaraan");
             model.addColumn("Tanggal Keluar");
-            model.addColumn("Waktu Keluar");
+            model.addColumn("Jam Keluar");
             model.addColumn("Durasi");
-            model.addColumn("Total Tarif");
             
             if (cari) {
-                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, tanggal_keluar, waktu_keluar, durasi, total_tarif FROM riwayat_parkir "
+                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, tanggal_keluar, jam_keluar, durasi FROM riwayat_parkir "
                     + "WHERE status = 'Keluar' AND (kode_tarif LIKE ? OR plat_nomor LIKE ?)";
             } else {
-                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, tanggal_keluar, waktu_keluar, durasi, total_tarif FROM riwayat_parkir "
+                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, tanggal_keluar, jam_keluar, durasi FROM riwayat_parkir "
                     + "WHERE status = 'Keluar' AND tanggal_keluar = ?";
             }
             
@@ -115,47 +122,47 @@ public class Laporan extends javax.swing.JPanel {
             model.addColumn("Kode Tarif");
             model.addColumn("Plat Nomor");
             model.addColumn("Jenis Kendaraan");
+            model.addColumn("Tanggal Masuk");
             model.addColumn("Tanggal Keluar");
             model.addColumn("Denda Karcis");
             
             if (cari) {
-                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, tanggal_keluar, denda FROM riwayat_parkir "
+                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, tanggal_masuk, tanggal_keluar, denda FROM riwayat_parkir "
                     + "WHERE denda > 0 AND (kode_tarif LIKE ? OR plat_nomor LIKE ?)";
             } else {
-                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, tanggal_keluar, denda FROM riwayat_parkir "
+                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, tanggal_masuk, tanggal_keluar, denda FROM riwayat_parkir "
                     + "WHERE denda > 0 AND tanggal_keluar = ?";
             }
             
-        } else if (pilihan.contains("Kendaraan Hilang")) { // Sesuaikan dengan teks di ComboBox kamu lek
+        } else if (pilihan.contains("Kendaraan Hilang")) {
             model.addColumn("Kode Karcis");
             model.addColumn("Plat Nomor");
             model.addColumn("Jenis");
             model.addColumn("Warna");
-            model.addColumn("Merk/Seri");
-            model.addColumn("No. Telepon");
+            model.addColumn("Merk");
+            model.addColumn("No Telp");
             model.addColumn("Tanggal Lapor");
+            model.addColumn("Jam Lapor");
             model.addColumn("Status");
             
             if (cari) {
-                // Jika kasir mengetik di kolom pencarian kata kunci
-                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, warna, merk, no_telp, tanggal_lapor, status FROM kendaraan_hilang "
+                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, warna, merk, no_telp, tanggal_lapor, jam_lapor, status FROM kendaraan_hilang "
                     + "WHERE kode_tarif LIKE ? OR plat_nomor LIKE ?";
             } else {
-                // Kondisi normal filter murni mengikuti JDateChooser tanggal lapor lek
-                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, warna, merk, no_telp, tanggal_lapor, status FROM kendaraan_hilang "
+                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, warna, merk, no_telp, tanggal_lapor, jam_lapor, status FROM kendaraan_hilang "
                     + "WHERE tanggal_lapor = ?";
             }
             
         } else if (pilihan.contains("Pendapatan")) {
             model.addColumn("Kode Karcis");
             model.addColumn("Tanggal Keluar");
-            model.addColumn("Waktu Keluar");
+            model.addColumn("Jam Keluar");
             model.addColumn("Plat Nomor");
             model.addColumn("Tarif Dasar");
             model.addColumn("Denda Karcis");
             model.addColumn("Sub Total");
             
-            sql = "SELECT kode_tarif, tanggal_keluar, waktu_keluar, plat_nomor, total_tarif, denda, (total_tarif + denda) AS sub_total "
+            sql = "SELECT kode_tarif, tanggal_keluar, Jam_keluar, plat_nomor, total_tarif, denda, (total_tarif + denda) AS sub_total "
                 + "FROM riwayat_parkir WHERE status = 'Keluar' AND tanggal_keluar = ?";
         }
 
@@ -175,18 +182,18 @@ public class Laporan extends javax.swing.JPanel {
                 if (pilihan.contains("Masuk")) {
                     model.addRow(new Object[]{
                         rs.getString("kode_tarif"), rs.getString("plat_nomor"),
-                        rs.getString("jenis_kendaraan"), rs.getString("tanggal_masuk"), rs.getString("waktu_masuk")
+                        rs.getString("jenis_kendaraan"), rs.getString("tanggal_masuk"), rs.getString("jam_masuk")
                     });
                 } else if (pilihan.contains("Keluar")) {
                     model.addRow(new Object[]{
                         rs.getString("kode_tarif"), rs.getString("plat_nomor"),
-                        rs.getString("jenis_kendaraan"), rs.getString("tanggal_keluar"), rs.getString("waktu_keluar"),
-                        rs.getString("durasi"), "Rp " + rs.getInt("total_tarif")
+                        rs.getString("jenis_kendaraan"), rs.getString("tanggal_keluar"), rs.getString("jam_keluar"),
+                        rs.getString("durasi")
                     });
                 } else if (pilihan.contains("Karcis Hilang")) {
                     model.addRow(new Object[]{
                         rs.getString("kode_tarif"), rs.getString("plat_nomor"),
-                        rs.getString("jenis_kendaraan"), rs.getString("tanggal_keluar"), "Rp " + rs.getInt("denda")
+                        rs.getString("jenis_kendaraan"), rs.getString("tanggal_masuk"), rs.getString("tanggal_keluar"), "Rp " + rs.getInt("denda")
                     });
                 } else if (pilihan.contains("Kendaraan Hilang")) {
                     model.addRow(new Object[]{
@@ -197,12 +204,13 @@ public class Laporan extends javax.swing.JPanel {
                         rs.getString("merk"),
                         rs.getString("no_telp"),
                         rs.getString("tanggal_lapor"),
+                        rs.getString("jam_lapor"),
                         rs.getString("status")
                     });
                 } else if (pilihan.contains("Pendapatan")) {
                     model.addRow(new Object[]{
                         rs.getString("kode_tarif"), rs.getString("tanggal_keluar"),
-                        rs.getString("waktu_keluar"), rs.getString("plat_nomor"),
+                        rs.getString("jam_keluar"), rs.getString("plat_nomor"),
                         "Rp " + rs.getInt("total_tarif"), "Rp " + rs.getInt("denda"), "Rp " + rs.getInt("sub_total")
                     });
                 }
@@ -214,19 +222,30 @@ public class Laporan extends javax.swing.JPanel {
             if (pilihan.contains("Pendapatan")) {
                 String sqlHari = "SELECT SUM(total_tarif + denda) AS total FROM riwayat_parkir WHERE status = 'Keluar' AND tanggal_keluar = ?";
                 java.sql.PreparedStatement psHari = conn.prepareStatement(sqlHari);
+                
                 psHari.setString(1, tglPilihan);
-                java.sql.ResultSet rsHari = psHari.executeQuery();
+                
+                java.sql.ResultSet rsHari = psHari.executeQuery();              
+                java.text.DecimalFormat kursIndo = (java.text.DecimalFormat) java.text.DecimalFormat.getIntegerInstance();
+                java.text.DecimalFormatSymbols formatRp = new java.text.DecimalFormatSymbols();
+                
+                formatRp.setGroupingSeparator('.'); 
+                kursIndo.setDecimalFormatSymbols(formatRp);
                 if(rsHari.next()){
-                    harian.setText("Pendapatan Harian: Rp " + rsHari.getInt("total"));
+                    int hariIni = rsHari.getInt("total");
+                    harian.setText("Pendapatan Hari Ini: Rp " + kursIndo.format(hariIni));
                 }
                 
                 String bulanPilihan = tglPilihan.substring(0, 7); 
                 String sqlBulan = "SELECT SUM(total_tarif + denda) AS total FROM riwayat_parkir WHERE status = 'Keluar' AND tanggal_keluar LIKE ?";
+                
                 java.sql.PreparedStatement psBulan = conn.prepareStatement(sqlBulan);
+                
                 psBulan.setString(1, bulanPilihan + "%");
                 java.sql.ResultSet rsBulan = psBulan.executeQuery();
                 if(rsBulan.next()){
-                    bulanan.setText("Pendapatan Bulanan: Rp " + rsBulan.getInt("total"));
+                    int bulanIni = rsBulan.getInt("total");
+                    bulanan.setText("Pendapatan Bulan Ini: Rp " + kursIndo.format(bulanIni));
                 }
                 
                 harian.setVisible(true);
@@ -271,9 +290,19 @@ public class Laporan extends javax.swing.JPanel {
         btnEdit = new javax.swing.JButton();
         txtCari = new javax.swing.JTextField();
 
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                jPanel1ComponentShown(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -411,28 +440,23 @@ public class Laporan extends javax.swing.JPanel {
         // TODO add your handling code here:
         String pilihan = cbJenisLaporan.getSelectedItem().toString();
     
-        // 🚨 SAKTI: Samakan teks murni dengan isi ComboBox lu ("Kendaraan Hilang")
         if (pilihan.equals("Kendaraan Hilang")) {
 
-            // Sembunyikan tabel laporan sementara biar bersih murni
             scrollLaporan.setVisible(false);
             harian.setVisible(false);
             bulanan.setVisible(false);
 
-            // Panggil class JDialog Form yang sudah kamu buat lek
             javax.swing.JFrame frameInduk = (javax.swing.JFrame) javax.swing.SwingUtilities.getWindowAncestor(this);
             FormKendaraanHilang dialogHilang = new FormKendaraanHilang(frameInduk, true);
 
-            // Set posisi di tengah & beri tahu form siapa panel utamanya agar bisa di-refresh balik
             dialogHilang.setLocationRelativeTo(this);
             dialogHilang.setPanelLaporan(this); 
 
-            // Tampilkan pop-up form-nya secara modal
+            tampilkanDataLaporan();
             dialogHilang.setVisible(true);
-            return; // Potong jalur agar tidak mengeksekusi tampilkanDataLaporan() di bawah saat form baru buka
+            return;
         }
 
-        // Jika memilih jenis laporan selain kendaraan hilang, tampilkan tabel normal
         scrollLaporan.setVisible(true);
         harian.setVisible(true);
         bulanan.setVisible(true);
@@ -479,20 +503,17 @@ public class Laporan extends javax.swing.JPanel {
         String keyword = txtCari.getText().trim();
         
         if (pilihan.equals("Jenis Laporan") || pilihan.isEmpty()) {
-            // Jika yang diketik bukan sekadar placeholder bawaan sistem
             if (!keyword.isEmpty() && !keyword.equals("Cari...")) {
                 
-                // Beri peringatan tegas ke kasir lek murni
                 javax.swing.JOptionPane.showMessageDialog(this, 
                     "Silakan pilih Jenis Laporan terlebih dahulu sebelum melakukan pencarian kendaraan!", 
                     "Peringatan", 
                     javax.swing.JOptionPane.WARNING_MESSAGE);
                 
-                // Kembalikan kotak pencarian ke kondisi placeholder semula
                 txtCari.setText("Cari...");
                 txtCari.setForeground(new java.awt.Color(153, 153, 153));
-                tabelLaporan.requestFocus(); // Lempar fokus keluar biar placeholder gak hilang
-                return; // Setop program, jangan biarkan kueri database berjalan!
+                tabelLaporan.requestFocus();
+                return;
             }
         }
         
@@ -515,7 +536,7 @@ public class Laporan extends javax.swing.JPanel {
         }
         
         Object primaryKey = tabelLaporan.getValueAt(barisTerpilih, 0); 
-        int kolomPlat = 1; // Untuk Masuk, Keluar, Karcis Hilang plat nomor ada di kolom indeks 1
+        int kolomPlat = 1;
         
         String platLama = tabelLaporan.getValueAt(barisTerpilih, kolomPlat).toString();
         String platBaru = javax.swing.JOptionPane.showInputDialog(this, "Masukkan Perbaikan Plat Nomor:", platLama);
@@ -531,21 +552,20 @@ public class Laporan extends javax.swing.JPanel {
             
             if (pilihan.contains("Masuk")) {
                 sqlUpdate = "UPDATE data_kendaraan SET plat_nomor = ? WHERE kode_tarif = ?";
-                psUpdate = conn.prepareStatement(sqlUpdate);
-                psUpdate.setString(1, platBaru.toUpperCase());
-                psUpdate.setString(2, primaryKey.toString());
-                
+            } else if (pilihan.contains("Kendaraan Hilang")) {
+                sqlUpdate = "UPDATE kendaraan_hilang SET plat_nomor = ? WHERE kode_tarif = ?";
             } else {
                 sqlUpdate = "UPDATE riwayat_parkir SET plat_nomor = ? WHERE kode_tarif = ?";
-                psUpdate = conn.prepareStatement(sqlUpdate);
-                psUpdate.setString(1, platBaru.toUpperCase());
-                psUpdate.setString(2, primaryKey.toString());
             }
+
+            psUpdate = conn.prepareStatement(sqlUpdate);
+            psUpdate.setString(1, platBaru.toUpperCase());
+            psUpdate.setString(2, primaryKey.toString());
             
             if (psUpdate != null) {
                 int hasil = psUpdate.executeUpdate();
                 if (hasil > 0) {
-                    javax.swing.JOptionPane.showMessageDialog(this, "Data plat nomor berhasil diperbarui lek!", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                    javax.swing.JOptionPane.showMessageDialog(this, "Data plat nomor berhasil diperbarui", "Sukses", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                     tampilkanDataLaporan(); 
                 }
                 psUpdate.close();
@@ -554,6 +574,15 @@ public class Laporan extends javax.swing.JPanel {
             javax.swing.JOptionPane.showMessageDialog(this, "Gagal mengedit data: " + e.getMessage(), "Eror", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void jPanel1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentShown
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel1ComponentShown
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        // TODO add your handling code here:
+        tampilkanDataLaporan();
+    }//GEN-LAST:event_formComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

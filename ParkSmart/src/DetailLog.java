@@ -37,7 +37,7 @@ public class DetailLog extends javax.swing.JDialog {
                 lblStatusKendaraan.setText("Kendaraan Keluar");
                 
                 String tglKeluarDb = rs.getString("tanggal_keluar");
-                String waktuKeluarStr = rs.getString("waktu_keluar");
+                String waktuKeluarStr = rs.getString("jam_keluar");
                 try {
                     java.util.Date dateKeluar = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(tglKeluarDb);
                     String tglKeluarFix = new java.text.SimpleDateFormat("dd MMM yyyy").format(dateKeluar);
@@ -45,14 +45,22 @@ public class DetailLog extends javax.swing.JDialog {
                 } catch (Exception e) {
                     lblWaktuKeluar.setText(tglKeluarDb + " - " + waktuKeluarStr + " | Oleh " + rs.getString("petugas_keluar"));
                 }
-                
+               
                 lblKode.setText(kodeTarifTerima);
-                String platDb = rs.getString("plat_nomor");
-                String platFix = platDb.replaceAll("^([A-Z]{1,2})(\\d+)([A-Z]{1,3})$", "$1 $2 $3");
-                lblPlat.setText(platFix + " - " + rs.getString("jenis_kendaraan"));
+                
+                String platInput = rs.getString("plat_nomor");
+                String platFormat = platInput;
+                if (platInput != null) {
+                    platInput = platInput.trim().toUpperCase().replace(" ", "");
+                    
+                    if (platInput.matches("^[A-Z]{1,2}\\d+[A-Z]{1,3}$")) {
+                        platFormat = platInput.replaceAll("^([A-Z]{1,2})(\\d+)([A-Z]{1,3})$", "$1 $2 $3");
+                    }
+                }
+                lblPlat.setText(platFormat + " - " + rs.getString("jenis_kendaraan"));
                 
                 String tglMasukDb = rs.getString("tanggal_masuk");
-                String waktuMasukStr = rs.getString("waktu_masuk");
+                String waktuMasukStr = rs.getString("jam_masuk");
                 try {
                     java.util.Date dateMasuk = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(tglMasukDb);
                     String tglMasukFix = new java.text.SimpleDateFormat("dd MMM yyyy").format(dateMasuk);

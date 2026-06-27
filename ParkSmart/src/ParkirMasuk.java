@@ -38,8 +38,6 @@ public class ParkirMasuk extends javax.swing.JPanel {
             sb.append("MT-");
         } else if (jenisKendaraan.equalsIgnoreCase("MOBIL")) {
             sb.append("MB-");
-        } else {
-            sb.append("TRF-");
         }
 
         int angka = 1000 + random.nextInt(9000);
@@ -62,7 +60,6 @@ public class ParkirMasuk extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -70,7 +67,6 @@ public class ParkirMasuk extends javax.swing.JPanel {
         txtPlat = new javax.swing.JTextField();
         txtWarna = new javax.swing.JTextField();
         txtTgl = new javax.swing.JTextField();
-        txtTlp = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         kendaraanMotor = new javax.swing.JRadioButton();
@@ -91,20 +87,20 @@ public class ParkirMasuk extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Kode Tarif", "No Tlp", "Plat Nomer", "Jenis Kendaraan", "Warna Kendaraan", "Tanggal Masuk", "Jam Masuk", "Tarif", "Nama Petugas"
+                "Kode Tarif", "Plat Nomer", "Jenis Kendaraan", "Warna Kendaraan", "Tanggal Masuk", "Jam Masuk", "Tarif", "Nama Petugas"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -125,15 +121,11 @@ public class ParkirMasuk extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(5).setResizable(false);
             jTable1.getColumnModel().getColumn(6).setResizable(false);
             jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
         }
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-8, 190, 960, 210));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("No Tlp");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Plat Nomer");
@@ -147,11 +139,11 @@ public class ParkirMasuk extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Tanggal Masuk");
 
+        txtPlat.addActionListener(this::txtPlatActionPerformed);
+
         txtWarna.addActionListener(this::txtWarnaActionPerformed);
 
         txtTgl.addActionListener(this::txtTglActionPerformed);
-
-        txtTlp.addActionListener(this::txtTlpActionPerformed);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Jam Masuk");
@@ -223,51 +215,51 @@ public class ParkirMasuk extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(28, 28, 28)
+                        .addGap(101, 101, 101)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(kendaraanMotor)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2))
+                                .addGap(28, 28, 28)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(kendaraanMotor)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(kendaraanMobil))
+                                    .addComponent(txtPlat, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
-                                .addComponent(kendaraanMobil))
-                            .addComponent(txtTlp, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPlat, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtWarna, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtJam, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTgl, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtTarif, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtWarna, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtJam, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTgl, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(btnHapus))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnKembali)
-                            .addComponent(txtTarif, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(32, 32, 32)
+                        .addComponent(btnHapus)))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnTambah)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnTambah))
-                .addContainerGap(94, Short.MAX_VALUE))
+                    .addComponent(btnKembali))
+                .addContainerGap(88, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -276,41 +268,35 @@ public class ParkirMasuk extends javax.swing.JPanel {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTlp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTgl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTgl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtPlat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtPlat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(txtJam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(cbPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbPetugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel7)
-                    .addComponent(txtTarif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(kendaraanMotor)
                     .addComponent(kendaraanMobil))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtTarif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(txtWarna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnKembali)
-                    .addComponent(btnTambah)
-                    .addComponent(btnHapus))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(btnTambah))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnHapus)
+                    .addComponent(btnKembali))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 190));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtTlpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTlpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTlpActionPerformed
 
     private void txtTarifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTarifActionPerformed
         // TODO add your handling code here:
@@ -348,9 +334,8 @@ public class ParkirMasuk extends javax.swing.JPanel {
         // TODO add your handling code here:
         String platNomor = txtPlat.getText().trim();
         String warna = txtWarna.getText().trim();
-        String telp = txtTlp.getText().trim();
         String tanggalMasuk = txtTgl.getText();
-        String waktuMasuk = txtJam.getText();
+        String jamMasuk = txtJam.getText();
         String pilihPetugas = cbPetugas.getSelectedItem().toString();
 
         String jenisKendaraan = "";
@@ -365,7 +350,7 @@ public class ParkirMasuk extends javax.swing.JPanel {
             return;
         }
 
-        int tarifDasar = Integer.parseInt(txtTarif.getText());
+        int tarifKendaraan = Integer.parseInt(txtTarif.getText());
 
         if (platNomor.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Plat Nomor wajib diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
@@ -375,8 +360,8 @@ public class ParkirMasuk extends javax.swing.JPanel {
         String kodeTarif = kodeTarifAcak(jenisKendaraan);
 
         String sql = "INSERT INTO data_kendaraan (kode_tarif, plat_nomor, jenis_kendaraan, warna_kendaraan, "
-                   + "tanggal_masuk, waktu_masuk, tarif, no_telp, petugas_jaga) "
-                   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                   + "tanggal_masuk, jam_masuk, tarif, petugas_jaga) "
+                   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             java.sql.Connection conn = Koneksi.getConnection(); 
@@ -387,20 +372,30 @@ public class ParkirMasuk extends javax.swing.JPanel {
             ps.setString(3, jenisKendaraan);
             ps.setString(4, warna);
             ps.setString(5, tanggalMasuk);
-            ps.setString(6, waktuMasuk);
-            ps.setInt(7, tarifDasar);
-            ps.setString(8, telp);
-            ps.setString(9, pilihPetugas);
+            ps.setString(6, jamMasuk);
+            ps.setInt(7, tarifKendaraan);
+            ps.setString(8, pilihPetugas);
 
             int hasil = ps.executeUpdate();
 
             if (hasil > 0) {
+                String sqlLogManual = "INSERT INTO log_aktivitas (tanggal, jam, petugas, status, kode_tarif) VALUES (?, ?, ?, ?, ?)";
+                try (java.sql.PreparedStatement psLog = conn.prepareStatement(sqlLogManual)) {
+                    psLog.setString(1, tanggalMasuk);
+                    psLog.setString(2, jamMasuk);
+                    psLog.setString(3, pilihPetugas);
+                    psLog.setString(4, "Kendaraan Masuk");
+                    psLog.setString(5, kodeTarif);
+                    psLog.executeUpdate();
+                } catch (Exception exLog) {
+                    System.out.println("Gagal kueri log_aktivitas masuk: " + exLog.getMessage());
+                }
+                
                 Koneksi.catatAktivitas(pilihPetugas, "Kendaraan Masuk", kodeTarif);
                 JOptionPane.showMessageDialog(this, "Kendaraan " + platNomor + " berhasil masuk! Kode Tiket: " + kodeTarif, "Sukses", JOptionPane.INFORMATION_MESSAGE);
 
                 txtPlat.setText("");
                 txtWarna.setText("");
-                txtTlp.setText("");
                 txtTarif.setText("");
                 
                 buttonGroup1.clearSelection(); 
@@ -442,7 +437,6 @@ public class ParkirMasuk extends javax.swing.JPanel {
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
-        txtTlp.setText("");
         txtPlat.setText("");
         txtWarna.setText("");
         txtTarif.setText("0");
@@ -450,8 +444,6 @@ public class ParkirMasuk extends javax.swing.JPanel {
         buttonGroup1.clearSelection();
 
         cbPetugas.setSelectedIndex(0); 
-
-        txtTlp.requestFocus();
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKembaliActionPerformed
@@ -470,6 +462,10 @@ public class ParkirMasuk extends javax.swing.JPanel {
     private void cbPetugasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPetugasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbPetugasActionPerformed
+
+    private void txtPlatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPlatActionPerformed
     public void loadTable() {
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
         model.setRowCount(0); 
@@ -484,34 +480,38 @@ public class ParkirMasuk extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(i).setCellRenderer(tengah);
         }
 
-        String sql = "SELECT * FROM data_kendaraan ORDER BY tanggal_masuk DESC, waktu_masuk DESC";
+        String sql = "SELECT * FROM data_kendaraan ORDER BY tanggal_masuk DESC, jam_masuk DESC";
 
         try {
             java.sql.Connection conn = Koneksi.getConnection();
             java.sql.PreparedStatement ps = conn.prepareStatement(sql);
             java.sql.ResultSet rs = ps.executeQuery();
-
+            
             while (rs.next()) {
-                String platAsli = rs.getString("plat_nomor");
-                String platFormat = platAsli;
+                String platInput = rs.getString("plat_nomor");
+                String platFormat = platInput;
 
-                if (platAsli != null && platAsli.matches("^[A-Z]{1,2}\\d{1,4}[A-Z]{1,3}$")) {
-                    platFormat = platAsli.replaceAll("^([A-Z]{1,2})(\\d{1,4})([A-Z]{1,3})$", "$1 $2 $3");
+                if (platInput != null) {
+                    platInput = platInput.trim().toUpperCase().replace(" ", "");
+
+                    if (platInput.matches("^[A-Z]{1,2}\\d+[A-Z]{1,3}$")) {
+                        platFormat = platInput.replaceAll("^([A-Z]{1,2})(\\d+)([A-Z]{1,3})$", "$1 $2 $3");
+                    }
                 }
                 
                 Object[] row = {
                     rs.getString("kode_tarif"),
-                    rs.getString("no_telp"),
                     platFormat,
                     rs.getString("jenis_kendaraan"),
                     rs.getString("warna_kendaraan"),
                     rs.getString("tanggal_masuk"),
-                    rs.getString("waktu_masuk"),
+                    rs.getString("jam_masuk"),
                     rs.getInt("tarif"),
                     rs.getString("petugas_jaga")
                 };        
                 model.addRow(row);
             }
+            rs.close(); ps.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Gagal memuat data tabel: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -524,7 +524,6 @@ public class ParkirMasuk extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cbPetugas;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -543,7 +542,6 @@ public class ParkirMasuk extends javax.swing.JPanel {
     private javax.swing.JTextField txtPlat;
     private javax.swing.JTextField txtTarif;
     private javax.swing.JTextField txtTgl;
-    private javax.swing.JTextField txtTlp;
     private javax.swing.JTextField txtWarna;
     // End of variables declaration//GEN-END:variables
 }
