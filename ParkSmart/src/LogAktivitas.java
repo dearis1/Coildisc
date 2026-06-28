@@ -21,6 +21,7 @@ public class LogAktivitas extends javax.swing.JPanel {
         loadAktivitasDinamis("");
     }
     
+    // Costum method
     public void loadAktivitasDinamis(String kataKunci) {
         pnlScroll.removeAll();
 
