@@ -9,6 +9,7 @@
  */
 import javax.swing.JOptionPane;
 public class ParkirKeluar extends javax.swing.JPanel {
+    // Encapsulation INSTANCE VARIABLE / GLOBAL VARIABLE
     private long totalJamGlobal = 0;
     private int tarifPerJamGlobal = 0;
     private String jenisKendaraanGlobal = "";
@@ -16,10 +17,11 @@ public class ParkirKeluar extends javax.swing.JPanel {
     /**
      * Creates new form CetakKarcis
      */
+    // Konstruktor standar
     public ParkirKeluar() {
         initComponents();
     }
-    
+    // Konstruktor Parameter untuk melempar & mencari kode tiket secara otomatis
     public ParkirKeluar(String kodeOtomatis) {
         initComponents();
         txtCariData.setText(kodeOtomatis);

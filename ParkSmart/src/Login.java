@@ -19,6 +19,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    
     public Login() {
         initComponents();
     }
@@ -130,6 +131,7 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+        // Logic method
         String username = txtUsername.getText();
         String password = new String(txtPass.getPassword());
         
@@ -149,7 +151,8 @@ public class Login extends javax.swing.JFrame {
 
             if (rs.next()) {
                 JOptionPane.showMessageDialog(this, "Login Berhasil!.");
-                
+                // INSTANSIASI OBJECT
+                // Membuat/memanggil objek baru dari kelas HalamanUtama
                 String namaLogin = rs.getString("username"); 
 
                 HalamanUtama utama = new HalamanUtama(namaLogin);
@@ -172,7 +175,7 @@ public class Login extends javax.swing.JFrame {
             txtPass.setEchoChar((char) 0);
         } else {
             txtPass.setEchoChar('•'); 
-    }
+        }
     }//GEN-LAST:event_showPassActionPerformed
 
     /**
