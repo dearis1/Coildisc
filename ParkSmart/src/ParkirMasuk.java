@@ -380,7 +380,7 @@ public class ParkirMasuk extends javax.swing.JPanel {
             if (hasil > 0) {
                 String sqlLogManual = "INSERT INTO log_aktivitas (tanggal, jam, petugas, status, kode_tarif) VALUES (?, ?, ?, ?, ?)";
                 try (java.sql.PreparedStatement psLog = conn.prepareStatement(sqlLogManual)) {
-                    psLog.setString(1, tanggalMasuk);
+                    psLog.setString(1, java.time.LocalDate.now().toString());
                     psLog.setString(2, jamMasuk);
                     psLog.setString(3, pilihPetugas);
                     psLog.setString(4, "Kendaraan Masuk");

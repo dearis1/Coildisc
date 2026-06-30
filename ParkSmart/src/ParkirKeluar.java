@@ -611,9 +611,9 @@ public class ParkirKeluar extends javax.swing.JPanel {
 
     private void chkKarcisHilangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkKarcisHilangActionPerformed
         // TODO add your handling code here:
-        if (!txtCariData.getText().isEmpty()) {
-            btnCariPlatActionPerformed(null);
-        }
+        if (!txtKode.getText().isEmpty()) {
+            btnHitungActionPerformed(null); 
+    }
     }//GEN-LAST:event_chkKarcisHilangActionPerformed
 
     private void btnHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungActionPerformed

@@ -120,11 +120,13 @@ public class Laporan extends javax.swing.JPanel {
             model.addColumn("Jam Masuk");
             
             if (cari) {
-                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, tanggal_masuk, jam_masuk FROM data_kendaraan "
-                    + "WHERE kode_tarif LIKE ? OR plat_nomor LIKE ?";
+                sql = "SELECT l.kode_tarif, k.plat_nomor, k.jenis_kendaraan, l.tanggal AS tanggal_masuk, l.jam AS jam_masuk "
+                    + "FROM log_aktivitas l LEFT JOIN data_kendaraan k ON l.kode_tarif = k.kode_tarif "
+                    + "WHERE l.status = 'Kendaraan Masuk' AND (l.kode_tarif LIKE ? OR k.plat_nomor LIKE ?)";
             } else {
-                sql = "SELECT kode_tarif, plat_nomor, jenis_kendaraan, tanggal_masuk, jam_masuk FROM data_kendaraan "
-                    + "WHERE tanggal_masuk = ?";
+                sql = "SELECT l.kode_tarif, COALESCE(k.plat_nomor, '-') AS plat_nomor, COALESCE(k.jenis_kendaraan, '-') AS jenis_kendaraan, l.tanggal AS tanggal_masuk, l.jam AS jam_masuk "
+                    + "FROM log_aktivitas l LEFT JOIN data_kendaraan k ON l.kode_tarif = k.kode_tarif "
+                    + "WHERE l.status = 'Kendaraan Masuk' AND l.tanggal = ?";
             }
             
         } else if (pilihan.contains("Keluar")) {
